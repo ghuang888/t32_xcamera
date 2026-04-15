@@ -1,0 +1,45 @@
+T32_personvehicleDet_v0.0.5_mv1-850K_20240909.7z:
+    1. update tnpu.ko: insmod tnpu.ko 
+    2. Version segment '.version' contains 5 entries:
+       Name                  Version
+       MAGIK CORE VER        0.5.0
+       MAGIK CORE GIT        f20e681
+       VENUS INFER KIT VER   0.2.5.2.ALPHA
+       VENUS INFER KIT GIT   de83629
+       MAGIK TRANS KIT GIT   1896097
+    3. .a
+
+T32_personvehicleDet_v0.0.3_mv1-850K_20240902.7z:
+    1. insmod tnpu.ko
+    2. INFO(ivs): personvehicledet uranus version:0.0.3(00000003_5a08240)  built:20240902-1750(5.4.0 mips@aie)
+       MAGIK CORE VER        0.5.0
+       MAGIK CORE GIT        5c8dcf1
+       VENUS INFER KIT VER   0.2.5.2.ALPHA
+       VENUS INFER KIT GIT   de83629
+       MAGIK TRANS KIT GIT   dbedd88
+    2. genbox -> model
+    3. mem: 3.4M
+    4. add glibc
+    
+T32_personvehicleDet_v0.0.2_mv1-850K-uclibc_20240826.7z:
+    1. Name                  Version
+       MAGIK CORE VER        0.5.0
+       MAGIK CORE GIT        7c27831
+       VENUS INFER KIT VER   0.2.5.2.ALPHA
+       VENUS INFER KIT GIT   de83629
+       MAGIK TRANS KIT GIT   292ad3d
+    2. resize: simd
+    3. nv12 input
+    
+T32_personvehicleDet_v0.0.1_mv1-uclibc_20240731.7z:
+    1. INFO(ivs): personvehicledet AI-compiler version:0.0.1(00000001_5a08240)  built:20240731-1155(5.4.0 mips@aie)
+       Name                  Version
+       MAGIK CORE VER        0.5.0
+       MAGIK CORE GIT        b935830
+       VENUS INFER KIT VER   0.2.5.2.ALPHA
+       VENUS INFER KIT GIT   de83629
+       MAGIK TRANS KIT GIT   92d06e0
+    2. uclibc no glibc
+    3. model: g-850K
+    4. no resize
+    5. rgba input

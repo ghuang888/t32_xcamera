@@ -1,0 +1,134 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>基本信息</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/html5.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="layui/layui.js"></script>
+	</head>
+	<body>
+		<form class="layui-form">
+		<fieldset class="layui-elem-field" style="font-size: 16px;">
+			<legend>ISP Controller</legend>
+			<div class="main" style="width:540px;margin-left: 260px;">
+				<div class="layui-form-item" style="width: 540px;">
+					<label class="layui-form-label" style="text-align:right;width: 100px;">饱和度：</label>
+					<div class="layui-input-inline">
+						<input type="number" id="saturation" name="saturation" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 540px;">
+					<label class="layui-form-label" style="text-align:right;width: 100px;">亮度：</label>
+					<div class="layui-input-inline">
+						<input type="number" id="brightness" name="brightness" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 540px;">
+					<label class="layui-form-label" style="text-align:right;width: 100px;">锐度：</label>
+					<div class="layui-input-inline">
+						<input type="number" id="sharpness" name="sharpness" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 540px;">
+					<label class="layui-form-label" style="text-align:right;width: 100px;">曝光参数：</label>
+					<div class="layui-input-inline">
+						<input type="number" id="exposureparameters" name="exposureparameters" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<button type="button" class="layui-btn" id="master_sub" lay-submit="master_sub" lay-filter="master_sub" style="display:block;margin-left: 300px;width: 100px;">保存</button>
+				</div>
+				<div class="layui-form-item" style="width: 540px;">
+					<label class="layui-form-label" style="text-align:right;width: 100px;">Antifilicker：</label>
+					<div class="layui-input-inline" style="width: 300px;">
+						<select name="antifilicker" id="antifilicker" >
+							<option value="0">DISABLE</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="layui-elem-field" style="font-size: 16px;">
+			<legend>Sensor Controller</legend>
+			<div class="layui-inline">
+				<div class="layui-form-item" style="width: 1000px;">
+					<div class="layui-col-xs3">
+						<label class="layui-form-label" style="text-align: right; margin-left: 50px;">Register：</label>
+					</div>
+					<div class="layui-col-xs3">
+						<input type="text" id="" name="" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+					<div class="layui-col-xs3" >
+						<label class="layui-form-label" style="text-align: right; margin-left: 50px;">Value：</label>
+					</div>
+					<div class="layui-col-xs3">
+						<input type="text" id="" name="" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 1000px;">
+					<div class="layui-col-xs3">
+						<label class="layui-form-label" style="text-align: right; margin-left: 50px;">Register：</label>
+					</div>
+					<div class="layui-col-xs3">
+						<input type="text" id="" name="" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+					<div class="layui-col-xs3" >
+						<label class="layui-form-label" style="text-align: right; margin-left: 50px;">Value：</label>
+					</div>
+					<div class="layui-col-xs3">
+						<input type="text" id="" name="" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 1000px;">
+					<div class="layui-col-xs6">
+						<button type="button" class="layui-btn" id="read_btn" lay-submit="read_btn" lay-filter="read_btn" style="display:block;margin-left: 250px;width: 150px;">READ</button>
+					</div>
+					<div class="layui-col-xs6">
+						<button type="button" class="layui-btn" id="write_btn" lay-submit="write_btn" lay-filter="write_btn" style="display:block;margin-left: 100px;width: 150px;">WRITE</button>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+		<fieldset class="layui-elem-field" style="font-size: 16px;">
+			<legend>Sensor FPS</legend>
+			<div class="layui-form-item" style="width: 1000px;">
+				<div class="layui-col-xs3">
+					<label class="layui-form-label" style="text-align: right; margin-left: 50px;">FPS_Num：</label>
+				</div>
+				<div class="layui-col-xs3">
+					<input type="number" id="fps_num" name="fps_num" style="font-size: 14px;margin-left: -60px;" lay-verify="title"
+					 class="layui-input">
+				</div>
+				<div class="layui-col-xs3" >
+					<label class="layui-form-label" style="text-align: right; margin-left: 50px;">FPS_Den：</label>
+				</div>
+				<div class="layui-col-xs3">
+					<input type="number" id="fps_den" name="fps_den" style="font-size: 14px;margin-left: -60px;" lay-verify="title"
+					 class="layui-input">
+				</div>
+			</div>
+		</fieldset>
+		</form>
+		<script>
+			layui.use('form', function() {
+				var form = layui.form,
+					$ = layui.jquery;
+				form.render();
+			});
+		</script>
+	</body>
+</html>

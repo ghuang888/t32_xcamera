@@ -1,0 +1,13 @@
+march=t41
+model=N
+toolchain=gcc720
+libc=uclibc
+sensor=gc4663
+encoder=H265
+GB_VERSION=GB28181
+XCAM_VER_MAJOR=0
+XCAM_VER_MINOR=1
+ONVIF_VER_MAJOR=0
+ONVIF_VER_MINOR=1
+motor_enable=0
+dl_enable=0

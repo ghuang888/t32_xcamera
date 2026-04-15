@@ -1,0 +1,838 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]--> 
+<style>
+	option:checked {
+			background-color: #5FB878;
+	}
+</style>
+</head>
+<body>        
+<fieldset class="layui-elem-field layui-field-title" style="font-size: 25px;text-align: center;">
+	<legend>视频信息设置</legend>
+</fieldset>
+<!-- ----------------------------------------------------------------------------------------主码流----------------------------------------------------------------------------------------- -->
+<div class="layui-col-xs6" style="width:808px;height:960px;position:Fixed;">
+	<fieldset class="layui-elem-field" id="master_title" style="font-size: 15px;">
+	<legend>主码流</legend>
+		<div class="layui-field-box">
+			<form class="layui-form"> 
+				<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;margin-left: 120px;">主码流开关：</label>
+				<div class="layui-input-inline">
+					<input type="radio" name="check" value="开" title="开" checked="">
+				</div>	
+		<br><br>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">分辨率：</label>
+						</div> 
+						<div class="layui-col-xs6">
+							<select name="master_resolution" id="master_resolution" lay-filter="master_resolution" lay-verify="master_resolution">
+								<option value="3">VGA</option>
+								<option value="4">D1</option>
+								<option value="5">720P</option>
+								<option value="6">960P</option>
+								<option value="7">1080P</option>
+								<option value="8">3M</option>
+								<option value="9">4M</option>
+							</select> 
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">帧率：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="master_frameRate" id="master_frameRate" placeholder="请输入帧率" lay-verify="number|master_frameRate"  autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4">
+							<div class="layui-form-mid layui-word-aux" id ="master_frameRate_limit" style="margin-left: 50px;"></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">码率：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="master_codeRate" id="master_codeRate" lay-verify="number|master_codeRate" placeholder="请输入码率" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4">
+							<div class="layui-form-mid layui-word-aux" id ="master_codeRate_limit" style="margin-left: 50px;"></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">Ｉ&nbsp;&nbsp;帧间隔：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="master_frameInterval" id="master_frameInterval" lay-verify="number|master_frameInterval"  placeholder="请输入间隔" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4" >
+							<div class="layui-form-mid layui-word-aux" style="margin-left: 50px;">(0-360)</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">码率控制：</label>
+						</div>
+						<div class="layui-col-xs6">
+							<select name="master_rateController" id="master_rateController" lay-verify="" >
+									<option value="0">变码率</option>
+									<option value="1">定码率</option>
+							</select>
+						</div>  
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">压缩格式：</label>
+						</div>
+						<div class="layui-col-xs6">
+							<select name="master_compressionFormat" id="master_compressionFormat">
+									<option value="0" selected="">H264</option>
+									<option value="1">265+</option>
+							</select>
+						</div>  
+					</div>
+				</div>  
+     		</form>
+   		</div>
+ 	</fieldset>
+</div>
+<!-- ----------------------------------------------------------------------------------------从码流----------------------------------------------------------------------------------------- -->
+<div class="layui-col-xs6" style="width:808px;height:960px;position:Fixed;margin-left: 808px;">
+	<fieldset class="layui-elem-field" style="font-size: 15px;">
+	<legend>从码流</legend>
+		<div class="layui-field-box">
+			<form class="layui-form">
+				<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;margin-left: 100px;">从码流开关：</label>
+				<div class="layui-input-inline">
+					<input type="radio" name="slave_switch" id="slave_switch_open" value="1" title="开">
+					<input type="radio" name="slave_switch" id="slave_switch_close" value="0" title="关" checked="">
+				</div>
+		<br><br>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">分辨率：</label>
+						</div>	
+						<div class="layui-col-xs6">
+							<select name="slave_resolution" id="slave_resolution" lay-filter="slave_resolution">
+								<option value="4">D1</option>
+								<option value="3">VGA</option>
+								<option value="2">360P</option>
+								<option value="1">CIF</option>
+								<option value="0">QVGA</option>
+							</select>
+						</div>  
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">帧率：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="slave_frameRate" id="slave_frameRate" lay-verify="number|slave_frameRate" placeholder="请输入帧率" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4">
+							<div class="layui-form-mid layui-word-aux" id="slave_frameRate_limit" style="margin-left: 50px;"></div>
+						</div>	
+					</div>
+				</div>	 
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">码率：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="slave_codeRate" id="slave_codeRate" lay-verify="number|slave_codeRate" placeholder="请输入码率" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4">
+							<div class="layui-form-mid layui-word-aux" id="slave_codeRate_limit" style="margin-left: 50px;">(32-1024)</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width:600px;">
+						<div class="layui-col-xs4">
+							<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">Ｉ&nbsp;&nbsp;帧间隔：</label>
+						</div>
+						<div class="layui-col-xs4">
+							<input type="text" style="margin-left: 30px;" name="slave_frameInterval" id="slave_frameInterval" lay-verify="number|slave_frameInterval" placeholder="请输入间隔" autocomplete="off" class="layui-input">
+						</div>
+						<div class="layui-col-xs4">
+							<div class="layui-form-mid layui-word-aux" style="margin-left: 50px;">(0-360)</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">码率控制：</label>
+						</div>
+						<div class="layui-col-xs6">
+							<select name="slave_rateController" id="slave_rateController">
+								<option value="0">CBR</option>
+								<option value="1">VBR</option>
+								<option value="2">SMART</option>
+								<option value="3">CVBR</option>
+								<option value="4">AVBR</option>
+							</select>
+						</div>  
+					 </div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-form-item">
+						<div class="layui-col-xs6">
+							<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">压缩格式：</label>
+						</div>
+						<div class="layui-col-xs6">
+							<select name="slave_compressionFormat" id="slave_compressionFormat">
+								<option value="0">H264</option>
+								<option value="1">265+</option>
+							</select>
+						</div>  
+					</div>
+				</div>
+			</form>
+		</div>
+	</fieldset>
+	<div >
+		<div  style="float: left;margin-left: -700px;" >
+			<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">质量：</label>
+			<div class="layui-input-inline" style="float: left; margin-left: 30px;">
+				<select name="ch_qp0" id="ch_qp0" lay-filter="ch_qp0" lay-verify="ch_qp0" style="width: 235px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+					<option value="0">低</option>
+					<option value="1">中</option>
+					<option value="2">高</option>
+				</select> 
+			</div>
+			<div style="margin-top: 60px;">
+				<button type="submit" class="layui-btn" id="master_sub" lay-submit="master_sub" lay-filter="master_sub" style="display:block;margin:0 auto;">保存</button>
+			</div>
+		</div>
+			
+		<div  style="margin-left: 120px;" >
+			<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">质量：</label>
+			<div class="layui-input-inline" style="margin-left: 25px;">
+				<select name="ch_qp1" id="ch_qp1" lay-filter="ch_qp1" lay-verify="ch_qp1" style="width: 235px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+					<option value="0">低</option>
+					<option value="1">中</option>
+					<option value="2">高</option>
+				</select> 
+			</div>
+			<div style="display: block; margin-left: -200px;margin-top: 30px;" >
+				<button type="submit" class="layui-btn" id="slave_sub" lay-submit="slave_sub" lay-filter="slave_sub" style="display:block;margin:0 auto;">保存</button>
+			</div>
+		</div>
+	</div>
+<script>
+function doProcessResolution(width,height){
+	if (width==320 && height==240)
+		return 0;
+	if (width==352 && height==288)
+		return 1;
+	if (width==640 && height==360)
+		return 2;
+	if (width==640 && height==540)
+		return 3;
+	if (width==704 && height==576)
+		return 4;
+	if (width==1280 && height==720)
+		return 5;
+	if (width==1280 && height==960)
+		return 6;
+	if (width==1920 && height==1080)
+		return 7;
+	if (width==2304 && height==1296)
+		return 8;
+	if (width==2560 && height==1440)
+		return 9;
+	if (width==2560 && height==1920)
+		return 10;
+};
+function doProcessEnctype(type) {
+	if (type == "h264")
+		return "0";
+	if (type == "h265")
+		return "1";
+}
+layui.use(['form','layer','layedit', 'laydate'], function(){
+	var form = layui.form
+	,layer = layui.layer
+	,layedit = layui.layedit
+	,$ = layui.jquery
+	,laydate = layui.laydate;
+	form.render();
+	form.verify({
+			slave_codeRate: function (value) {
+				if (Number(value)<32 || Number(value)>1024) {
+				return '主码流码率范围必须在32~1024之间';
+				}
+			}
+	});
+	form.verify({
+			master_frameInterval: function (value) {
+				if (Number(value)<0 || Number(value)>360) {
+				return '主码流I帧间隔范围必须在0~360之间';
+				}
+			}
+	});
+	form.verify({
+			slave_frameInterval: function (value) {
+				if (Number(value)<0 || Number(value)>360) {
+				return '从码流I帧间隔范围必须在0~360之间';
+				}
+			}
+	});
+	// init data
+	var json_data= {
+			"configlist":{
+				"video.isp.fps":"video.isp.fps",
+				"video.bitrate":"video.bitrate",
+				"video.resolution":"video.resolution",
+				"video.enctype":"video.enctype",
+				"video.rcmode":"video.rcmode",
+				"video.qp":"video.qp",
+				"video.goplength":"video.goplength",
+				"video.switch":"video.switch",
+				"action": 0,
+			},
+			"return_value": 0
+		}
+		$.ajax({
+			type:"POST",
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(json_data),
+			success:function(data){
+		//slave 
+			var slave_rcmode_flag;
+			var slave_rcmode = data['video.rcmode'].ch1.rcmode;
+			if(slave_rcmode=="cbr")
+				slave_rcmode_flag=0;
+			if(slave_rcmode=="vbr")
+				slave_rcmode_flag=1;
+			if(slave_rcmode=="smart")
+				slave_rcmode_flag=2;
+			if(slave_rcmode=="cvbr")
+				slave_rcmode_flag=3;
+			if(slave_rcmode=="avbr")
+				slave_rcmode_flag=4;
+
+			var slave_switch_status = data['video.switch'].ch1.status;
+			if(slave_switch_status==1)
+				$("input[name='slave_switch'][value='1']").attr("checked",true);
+			else
+				$("input[name='slave_switch'][value='0']").attr("checked",true);
+	   		$("#slave_resolution").val(doProcessResolution(data['video.resolution'].ch1.picwidth,data['video.resolution'].ch1.picheight));
+			document.getElementById('slave_frameRate').value = data['video.isp.fps'].fpsnum;
+			document.getElementById('slave_codeRate').value = data['video.bitrate'].ch1.bitrate;
+			document.getElementById('slave_frameInterval').value = data['video.goplength'].ch1.goplength;
+			document.getElementById('slave_rateController').options[Number(slave_rcmode_flag)].selected = true;
+			document.getElementById('slave_compressionFormat').options[0].selected = true;
+			document.getElementById("ch_qp1").selectedIndex = data['video.qp'].ch1.qp;
+			var slave_resolution_value  = Number(doProcessResolution(data['video.resolution'].ch1.picwidth,data['video.resolution'].ch1.picheight));
+			switch(slave_resolution_value){
+				case 4:
+					$("#slave_frameRate_limit").html("(1-25)");
+					break;	
+				case 3:
+					$("#slave_frameRate_limit").html("(1-25)");
+					break;
+				case 2:
+					$("#slave_frameRate_limit").html("(1-25)");
+					break;	
+				case 1:
+					$("#slave_frameRate_limit").html("(1-25)");
+					break;
+				case 0:
+					$("#slave_frameRate_limit").html("(1-15)");
+					break;	
+				}
+		//master
+			var master_rcmode_flag;
+			var master_rcmode = data['video.rcmode'].ch0.rcmode;
+		var slave_rcmode_flag;
+		if(Number(slave_rateController)==0)
+			slave_rcmode_flag="cbr";
+		if(Number(slave_rateController)==1)
+			slave_rcmode_flag="cbr";
+		if(Number(slave_rateController)==2)
+			slave_rcmode_flag="smart";
+		if(Number(slave_rateController)==3)
+			slave_rcmode_flag="cvbr";
+		if(Number(slave_rateController)==4)
+			slave_rcmode_flag="avbr";
+			$("#master_resolution").val(doProcessResolution(data['video.resolution'].ch0.picwidth,data['video.resolution'].ch0.picheight));
+			document.getElementById('master_frameRate').value = data['video.isp.fps'].fpsnum;			
+			document.getElementById('master_codeRate').value = data['video.bitrate'].ch0.bitrate;
+			document.getElementById('master_frameInterval').value = data['video.goplength'].ch0.goplength;
+			document.getElementById('master_rateController').options[Number(master_rcmode_flag)].selected = true;
+			document.getElementById('master_compressionFormat').options[0].selected = true;
+			var master_resolution_value = Number(doProcessResolution(data['video.resolution'].ch0.picwidth,data['video.resolution'].ch0.picheight));
+			document.getElementById("ch_qp0").selectedIndex = data['video.qp'].ch0.qp;
+			switch(master_resolution_value){
+				case 9:
+					$("#master_frameRate_limit").html("(1-25)");
+					$("#master_codeRate_limit").html("(32-8192)");
+					break;			
+				case 8:
+					$("#master_frameRate_limit").html("(1-25)");
+					$("#master_codeRate_limit").html("(32-8192)");
+					break;
+				case 7:
+					$("#master_frameRate_limit").html("(1-25)");
+					$("#master_codeRate_limit").html("(32-8192)");
+					break;	
+				case 6:
+					$("#master_frameRate_limit").html("(1-25)");
+					$("#master_codeRate_limit").html("(32-6144)");
+					break;
+				case 5:
+					$("#master_frameRate_limit").html("(1-25)");
+					$("#master_codeRate_limit").html("(32-4096)");
+					break;	
+				case 4:
+					$("#master_frameRate_limit").html("(1-20)");
+					$("#master_codeRate_limit").html("(32-2048)");
+					break;
+				case 3:
+					$("#master_frameRate_limit").html("(1-15)");
+					$("#master_codeRate_limit").html("(32-2048)");
+					break;	
+			}
+			form.render();
+			changeLimit();
+
+			},error:function(data){
+				// $("#master_sub").hide();
+				// $("#slave_sub").hide();
+			}
+		});
+	// 主码流分辨率下拉框改变事件
+	form.on('select(master_resolution)',function(data){
+		// data.value为当前选中下拉框value值
+		var value = Number(data.value);
+		switch(value){
+			case 9:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-25)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-8192)");
+				break;	
+			case 8:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-25)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-8192)");
+				break;
+			case 7:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-25)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-8192)");
+				break;	
+			case 6:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-25)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-6144)");
+				break;
+			case 5:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-25)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-4096)");
+				break;	
+			case 4:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-20)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-2048)");
+				break;
+			case 3:
+				$("#master_frameRate_limit").empty();
+				$("#master_frameRate_limit").html("(1-15)");
+				$("#master_codeRate_limit").empty();
+				$("#master_codeRate_limit").html("(32-2048)");
+				break;	
+			}
+		changeLimit();
+	});
+	// 从码流分辨率下拉框改变事件 //
+	form.on('select(slave_resolution)',function(data){
+		// data.value为当前选中下拉框value值
+		var value = Number(data.value);
+		if(value == 0)
+		{
+			$("#slave_frameRate_limit").empty();
+			$("#slave_frameRate_limit").html("(1-15)");
+		}else{
+			$("#slave_frameRate_limit").empty();
+			$("#slave_frameRate_limit").html("(1-25)");
+		}
+		changeLimit();
+	});
+//  主码流表单提交验证 //
+	form.on('submit(master_sub)',function (){
+		var master_resolution        = $("#master_resolution").val();
+		var master_frameRate         = document.getElementById('master_frameRate').value;
+		var master_codeRate          = document.getElementById('master_codeRate').value;
+		var master_frameInterval     = document.getElementById('master_frameInterval').value;
+		var master_rateController    = $("#master_rateController").val();
+		var master_compressionFormat = $("#master_compressionFormat").val();
+		var width=0;
+		var height=0;	
+		var enctype;
+		var qp        = $("#ch_qp0").val();
+		switch	(Number(master_compressionFormat)){
+			case 0:
+				enctype="h264";
+				break;
+			case 1:
+				enctype="h265";
+				break;
+		}
+		switch (Number(master_resolution)){
+			case 4:
+				width = 704;
+				height = 576;
+				break;
+			case 5:
+				width = 1280;
+				height = 720;
+				break;
+			case 6:
+				width = 1280;
+				height = 960;
+				break;
+			case 7:
+				width = 1920;
+				height = 1080;
+				break;
+			case 8:
+				width = 2304;
+				height = 1296;
+				break;
+			case 9:
+				width = 2560;
+				height = 1440;
+				break;
+			case 10:
+				width = 2560;
+				height = 1920;
+				break;
+		}
+		var master_rcmode_flag;
+		if(Number(master_rateController)==0)
+			master_rcmode_flag="vbr";
+		if(Number(master_rateController)==1)
+			master_rcmode_flag="cbr";
+		var masterVideoInfo= {
+			"configlist":{
+				"video.isp.fps":"video.isp.fps",
+				"video.bitrate":"video.bitrate",
+				"video.resolution":"video.resolution",
+				"video.enctype":"video.enctype",
+				"video.goplength":"video.goplength",
+				"video.rcmode":"video.rcmode",
+				"video.qp":"video.qp",
+				"action": 1,
+			},
+			"video.isp.fps":{
+				"fpsnum":Number(master_frameRate),
+				"fpsden":1,
+			},
+			"video.bitrate":{
+				"ch0":{
+					"bitrate":Number(master_codeRate),
+				},
+			},
+			"video.resolution":{
+				"ch0":{
+					"picheight":Number(height),
+					"picwidth":Number(width),
+				},
+			},
+			"video.enctype":{
+				"ch0":{
+					"enctype":enctype,
+				},
+			},
+			"video.goplength":{
+				"ch0":{
+					"goplength":Number(master_frameInterval),
+				},
+			},
+			"video.rcmode":{
+				"ch0":{
+					"rcmode":master_rcmode_flag,
+				},
+			},
+			"video.qp":{
+				"ch0":{
+					"qp":Number(qp),
+				},
+			},
+			"return_value": 0,
+		}
+		$.ajax({
+			type:"POST",
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(masterVideoInfo),
+			success:function(data){
+				alert("Success");
+			},error:function(data){
+				alert("Error");
+			}
+		});
+		return false;
+	});
+//  从码流表单提交验证 //
+	form.on('submit(slave_sub)',function (){
+		var slave_switch_status     = Number($('input[name="slave_switch"]:checked ').val());
+		var slave_resolution        = $("#slave_resolution").val();
+		var slave_frameRate         = document.getElementById('slave_frameRate').value;
+		var slave_codeRate          = document.getElementById('slave_codeRate').value;
+		var slave_frameInterval     = document.getElementById('slave_frameInterval').value;
+		var slave_rateController    = $("#slave_rateController").val();
+		var slave_compressionFormat = $("#slave_compressionFormat").val();
+		var width=0;
+		var height=0;	
+		var enctype;
+		var qp        = $("#ch_qp1").val();
+		switch	(Number(slave_compressionFormat)){
+			case 0:
+				enctype="h264";
+				break;
+			case 1:
+				enctype="h265";
+				break;
+		}
+		switch (Number(slave_resolution)){
+			case 0:
+				width = 320;
+				height = 240;
+				break;	
+			case 1:
+				width = 352;
+				height = 288;
+				break;			
+			case 2:
+				width = 640;
+				height = 360;
+				break;			
+			case 3:
+				width = 640;
+				height = 540;
+				break;			
+			case 4:
+				width = 704;
+				height = 576;
+				break;
+		}
+		var slave_rcmode_flag;
+		if(Number(slave_rateController)==0)
+			slave_rcmode_flag="vbr";
+		if(Number(slave_rateController)==1)
+			slave_rcmode_flag="cbr";
+		var slaveVideoInfo= {
+			"configlist":{
+				"video.isp.fps":"video.isp.fps",
+				"video.bitrate":"video.bitrate",
+				"video.resolution":"video.resolution",
+				"video.enctype":"video.enctype",
+				"video.goplength":"video.goplength",
+				"video.rcmode":"video.rcmode",
+				"video.qp":"video.qp",
+				"video.switch":"video.switch",
+				"action": 1,
+			},
+			"video.isp.fps":{
+				"fpsnum":Number(slave_frameRate),
+				"fpsden":1,
+			},
+			"video.bitrate":{
+				"ch1":{
+					"bitrate":Number(slave_codeRate),
+				},
+			},
+			"video.resolution":{
+				"ch1":{
+					"picheight":Number(height),
+					"picwidth":Number(width),
+				},
+			},
+			"video.enctype":{
+				"ch1":{
+					"enctype":enctype,
+				},
+			},
+			"video.goplength":{
+				"ch1":{
+					"goplength":Number(slave_frameInterval),
+				},
+			},
+			"video.rcmode":{
+				"ch1":{
+					"rcmode":slave_rcmode_flag,
+				},
+			},
+			"video.switch":{
+				"ch1":{
+					"status":slave_switch_status,
+				},
+			},
+			"video.qp":{
+				"ch1":{
+					"qp":Number(qp),
+				},
+			},
+			"return_value": 0,
+		}
+		$.ajax({
+			type:"POST",
+
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(slaveVideoInfo),
+			success:function(data){
+				alert("Success");
+			},error:function(data){
+				alert("Error");
+			}
+		});
+		return false;
+	});
+});
+//  文本框限制函数
+function changeLimit(){
+	layui.use('form', function(){
+		var form = layui.form
+		,$ = layui.jquery;
+		if($("#slave_frameRate_limit").text() == "(1-25)"){
+			form.verify({
+				slave_frameRate: function (value) {
+					if (Number(value)<1 || Number(value)>25){
+					return '从码流帧率范围必须在1~25之间';
+						}
+					}
+			});
+		}
+		if($("#slave_frameRate_limit").text() == "(1-20)"){
+			form.verify({
+				slave_frameRate: function (value){
+					if (Number(value)<1 || Number(value)>20){
+					return '从码流帧率范围必须在1~20之间';
+						}
+					}
+			});
+		}
+		if($("#slave_frameRate_limit").text() == "(1-15)"){
+			form.verify({
+				slave_frameRate: function (value){
+					if (Number(value)<1 || Number(value)>15){
+					return '从码流帧率范围必须在1~15之间';
+						}
+					}
+			});
+		}
+		if($("#master_frameRate_limit").text() == "(1-25)"){
+			form.verify({
+				master_frameRate: function (value){
+					if (Number(value)<1 || Number(value)>25){
+					return '主码流帧率范围必须在1~25之间';
+						}
+					}
+			});
+		}
+		if($("#master_frameRate_limit").text() == "(1-20)"){
+			form.verify({
+				master_frameRate: function (value){
+					if (Number(value)<1 || Number(value)>20){
+					return '主码流帧率范围必须在1~20之间';
+						}
+					}
+			});
+		}
+		if($("#master_frameRate_limit").text() == "(1-15)"){
+			form.verify({
+				master_frameRate: function (value){
+					if (Number(value)<1 || Number(value)>15){
+					return '主码流帧率范围必须在1~15之间';
+						}
+					}
+			});
+		}
+		if($("#master_codeRate_limit").text() == "(32-8192)"){
+			form.verify({
+				master_codeRate: function (value){
+					if (Number(value)<32 || Number(value)>8192){
+					return '主码流码率范围必须在32~8192之间';
+						}
+					}
+			});
+		}
+		if($("#master_codeRate_limit").text() == "(32-6144)"){
+			form.verify({
+				master_codeRate: function (value){
+					if (Number(value)<32 || Number(value)>6144){
+					return '主码流码率范围必须在32~6144之间';
+						}
+					}
+			});
+		}
+		if($("#master_codeRate_limit").text() == "(32-4096)"){
+			form.verify({
+				master_codeRate: function (value){
+					if (Number(value)<32 || Number(value)>4096){
+					return '主码流码率范围必须在32~2048之间';
+						}
+					}
+			});
+		}
+		if($("#master_codeRate_limit").text() == "(32-2048)"){
+			form.verify({
+				master_codeRate: function (value){
+					if (Number(value)<32 || Number(value)>2048){
+					return '主码流码率范围必须在32~2048之间';
+						}
+					}
+			});
+		}
+		return false;
+	});
+}
+</script>
+</body>
+</html>

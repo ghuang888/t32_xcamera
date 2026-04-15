@@ -1,0 +1,19 @@
+*********Boa 源码编译指南*********
+进入源码ｓｒｃ路径下
+确定好Bｏａ可执行程序存放的位置，修改defines.h下 "define SERVER_ROOT"后的路径，该路径为ｂｏａ配置文件存在的地址（配置文件在ｗｅｂ代码的ｃｏｎｆ路径下）
+执行ｍａｋｅ操作，生成ｂｏａ可执行程序．
+将ｂｏａ可执行程序拷贝到开发板中
+
+
+*********可能遇到的问题*********
+1: make: yacc: Command not found 　　　//缺少工具
+   make: lex: Command not found
+解决: $ sudo apt-get install bison
+　　　　　　$ sudo apt-get install flex
+2: boa.c:194-unable to bind:Permission denied　　//权限不足
+解决: sudo ./boa
+3: boa.c:194 - unable to bind: Address already in use
+解决: #sudo ps -e |grep "boa"   //查找boa进程
+      #sudo kill xx             //跟据进程号杀死进程 
+      #sudo ./boa               //再次运行
+

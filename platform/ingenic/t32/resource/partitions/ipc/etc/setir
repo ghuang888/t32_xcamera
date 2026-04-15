@@ -1,0 +1,28 @@
+if [ ! -d "/sys/class/gpio/gpio61" ]
+then
+echo 61 > /sys/class/gpio/export
+fi
+if [ ! -d "/sys/class/gpio/gpio62" ]
+then
+echo 62 > /sys/class/gpio/export
+fi
+
+echo out > /sys/class/gpio/gpio61/direction
+echo out > /sys/class/gpio/gpio62/direction
+
+echo 0 > /sys/class/gpio/gpio61/active_low
+echo 0 > /sys/class/gpio/gpio62/active_low
+
+
+echo 0 > /sys/class/gpio/gpio61/value
+
+usleep 10000
+
+echo $1 > /sys/class/gpio/gpio61/value
+echo $2 > /sys/class/gpio/gpio62/value
+
+
+#usleep 10000
+#echo 0 > /sys/class/gpio/gpio61/value
+#echo 0 > /sys/class/gpio/gpio62/value
+

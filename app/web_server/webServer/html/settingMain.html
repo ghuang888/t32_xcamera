@@ -1,0 +1,84 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T31系统设置</title>
+<script src="js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/checkCookie.js"></script>
+</head>
+<body class="layui-layout-body">
+	 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	 <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+		<div class="layui-logo"><span style="font-size: 19px;margin-left:-25px;color: #FFFFFF;">IPCamera</span></div>
+		<ul class="layui-nav layui-layout" style="text-align: center;">
+			<li class="layui-nav-item">
+				<div class="layui-logo"><span style="font-size: 20px;">合肥君正科技有限公司</span></div>
+			</li>
+		</ul>
+		<ul class="layui-nav layui-layout-right">
+			<li class="layui-nav-item">
+				<span id = "myTime" style="font-size: 19px;"></span>
+			</li>
+		</ul>
+	</div>
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+		<ul class="layui-nav layui-nav-tree"  lay-filter="test">
+			<li class="layui-nav-item layui-this" >
+				<a href="javascript:;" data-options="{url:'videoMainSetting.html',title:'视频预览',id:'99'}"><i class="layui-icon layui-icon-video" style="font-size: 20px; color: #FFFF00;"></i> &nbsp;&nbsp;视频预览</a>
+			</li>
+			<li class="layui-nav-item" >
+				<a href="javascript:;" data-options="{url:'systemSetting.html',title:'系统设置',id:'1'}"><i class="layui-icon layui-icon-set" style="font-size: 20px; color: #1E9FFF;"></i> &nbsp;&nbsp;系统设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'networkSetting.html',title:'网络设置',id:'2'}"><i class="layui-icon layui-icon-website" style="font-size: 20px; color: #99FFFF;"></i> &nbsp;&nbsp;网络设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'videoSetting.html',title:'视频设置',id:'3'}"><i class="layui-icon layui-icon-util" style="font-size: 20px; color: #FF7F00;"></i> &nbsp;&nbsp;视频设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'audioSetting.html',title:'音频设置',id:'4'}"><i class="layui-icon layui-icon-headset" style="font-size: 20px; color: #CC3299;"></i> &nbsp;&nbsp;音频设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'imagesSetting.html',title:'图像设置',id:'5'}"><i class="layui-icon layui-icon-picture" style="font-size: 20px; color: #8E2323;"></i> &nbsp;&nbsp;图像设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'platformSetting.html',title:'平台设置',id:'6'}"><i class="layui-icon layui-icon-component" style="font-size: 20px; color: #00FF00;"></i> &nbsp;&nbsp;平台设置</a>
+			</li>
+			<li class="layui-nav-item">
+				<a href="javascript:;" data-options="{url:'ispAwb.html',title:'ISP API测试',id:'7'}"><i class="layui-icon layui-icon-component" style="font-size: 20px; color: #00FF00;"></i> &nbsp;&nbsp;ISP API测试</a>
+			</li>
+		</ul>
+    </div>
+</div>
+<div class="layui-body">
+	<div class="layui-tab" lay-filter="tabs">
+		<ul class="layui-tab-title" id="hideHeader">
+			<li class="layui-this"></span></li>
+		</ul>
+		<div class="layui-tab-content">
+			<div class="layui-tab-item layui-show" >
+				<div style="float:left;width:100%;height:100%;">
+					<iframe scrolling="no" frameborder="0"  src="" style="height:100%;width:100%;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+</div>
+<div class="layui-footer">
+	© 合肥君正科技有限公司
+</div>
+<script src="layui/layui.js"></script>
+<script src="js/settingMain.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+{
+    "project": 0,
+    "chip": "PRJ007",
+	"board": "ZN",
+	"type": "DEBUG",
+	"sensor_num":"SINGLE" ,
+    "version": {
+        "major": 0,
+        "minor": 0
+    },
+	"version_des": "StabilityTesting  version",
+	"copy.files": [
+		{
+			"src":"/home/module/t32_uboot_last",
+			"dst":"./u-boot-with-spl.bin"
+		},
+		{
+			"src":"/home/module/uImage.last",
+			"dst":"./uImage"
+		},
+		{
+			"src":"/home/module/root.bin",
+			"dst":"./root-uclibc-toolchain-7.2.0-1.0.squashfs"
+		},
+		{
+			"src":"../platform/ingenic/t32/resource/partitions/ipc",
+			"dst":"./"
+		},
+		{
+			"src":"/home/xcamera_device/platform/ingenic/t32/sdk/lib/uclibc/libimp.so",
+			"dst":"./ipc/lib/"
+		},
+		{
+			"src":"/home/xcamera_device/platform/ingenic/t32/sdk/lib/uclibc/libalog.so",
+			"dst":"./ipc/lib/"
+		},
+		{
+			"src":"/home/module/sinfo.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"/home/module/avpu.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"/home/module/tx-isp-PRJ007.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"/home/module/tnpu.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"/home/module/audio.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"/home/xcamera_device/app/build/out/xcam_daemon",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"/home/xcamera_device/app/build/out/mac_set",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"/home/module/impdbg",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"/home/module/logcat",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"/home/xcamera_device/app/build/out/xcamera",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"/home/module/model.mgk",
+            "dst":"./ipc/model"
+		},	
+		{
+			"src":"/home/xcamera_device/app/web_server/webServer",
+			"dst":"./ipc/etc/"
+		}
+	],
+	"copy.sensors": {
+		"sensors": ["gc5613"],
+		"src_drv":"/home/module",
+		"dst_drv":"./ipc/lib/modules",
+		"src_setting":"/home/module/",
+		"dst_setting":"./ipc/etc/sensor/"
+	},
+	"//": "size unit is K Bytes",
+    "partitions": {
+        "uboot": {
+			"file":"u-boot-with-spl.bin",
+            "offset": 0,
+            "size": 256
+        },
+		"kernel": {
+			"file":"uImage",
+            "offset": 2304,
+            "size": 2560
+        },
+        "rootfs": {
+			"file":"root-uclibc-toolchain-7.2.0-1.0.squashfs",
+            "offset": 256,
+            "size": 2048
+        },
+        "ipc": {
+			"file":"./ipc.bin",
+            "offset": 4864,
+            "size": 11520
+        }
+    },
+    "packages": [
+        {
+			"name":"ipc",
+			"parts":["ipc"]
+        },
+        {
+            "name": "all",
+            "parts":["uboot", "kernel", "rootfs", "ipc"]
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "project": 0,
+    "chip": "t21n",
+    "version": {
+        "major": 0,
+        "minor": 0
+    },
+	"copy.files": [
+		{
+			"src":"../_out/u-boot-with-spl.bin",
+			"dst":"./"
+		},
+		{
+			"src":"../_out/uImage",
+			"dst":"./uImage"
+		},
+		{
+			"src":"../platform/ingenic/t21/resource/partitions/rootfs/root-uclibc-toolchain-4.7.2-1.2.squashfs",
+			"dst":"./"
+		},
+		{
+			"src":"../platform/ingenic/t21/resource/partitions/ipc",
+			"dst":"./"
+		},
+		{
+			"src":"../_out/sinfo.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/sample_motor.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/sample_motor3.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/tx-isp-t21.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/xcam_daemon",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"../_out/mac_set",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"../_out/xcamera",
+			"dst":"./ipc/bin"
+		}
+	],
+	"copy.sensors": {
+		"sensors": ["gc2053"],
+		"src_drv":"../_out",
+		"dst_drv":"./ipc/lib/modules",
+		"src_setting":"../_out/",
+		"dst_setting":"./ipc/etc/sensor"
+	},
+	"//": "size unit is K Bytes",
+    "partitions": {
+        "uboot": {
+			"file":"u-boot-with-spl.bin",
+            "offset": 0,
+            "size": 256
+        },
+        "reserved": {
+			"file":"",
+            "offset": 256,
+            "size": 64
+        },
+        "rootfs": {
+			"file":"root-uclibc-toolchain-4.7.2-1.2.squashfs",
+            "offset": 320,
+            "size": 1024
+        },
+        "conf": {
+			"file":"",
+            "offset": 1344,
+            "size": 64
+        },
+        "kernel": {
+			"file":"uImage",
+            "offset": 1408,
+            "size": 1792
+        },
+        "ipc": {
+			"file":"./ipc.bin",
+            "offset": 3200,
+            "size": 13184
+        }
+    },
+    "packages": [
+        {
+			"name":"ipc",
+			"parts":["ipc"]
+        },
+        {
+            "name": "all",
+            "parts":["uboot", "reserved", "rootfs", "conf", "kernel", "ipc"]
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+
+SET(CMAKE_C_COMPILER "mips-linux-gnu-gcc")
+SET(CMAKE_CXX_COMPILER "mips-linux-gnu-g++")
+SET(CMAKE_C_FLAGS "-march=mips32r2 -DNO_OPENSSL=1 -rdynamic -lc -muclibc")
+SET(CMAKE_CXX_FLAGS "-march=mips32r2 -std=c++11 -DNO_OPENSSL=1 -rdynamic -lc -muclibc")
+SET(CMAKE_CXX_LINK_FLAGS "-muclibc")
+SET(SRC_RCFSERVER
+    Server.cpp
+	Serverdump.cpp
+    )
+SET(CMAKE_CXX_COMPILER "mips-linux-gnu-g++")
+ADD_LIBRARY(RCFSERVER OBJECT  ${SRC_RCFSERVER})
+SET_TARGET_PROPERTIES(RCFSERVER PROPERTIES ENABLE_EXPORTS ON)
+ADD_DEFINITIONS("-w")

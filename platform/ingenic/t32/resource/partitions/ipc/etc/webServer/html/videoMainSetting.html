@@ -1,0 +1,130 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+<form class="layui-form">
+<div class="main" style="width:1300px;margin-left: 200px;position=Fixed;">
+	<div class="layui-inline">
+		<label class="layui-form-label"  style="font-size: 16px;width: 100px;text-align: right;margin-left: -30px;">主码流：</label>
+		<div class="layui-input-inline">
+			<input type="radio" name="switch" id="master_switch" checked="checked" lay-filter="switch_filter" value="0">
+		</div> 
+	</div>
+	<div class="layui-inline" id="slave">
+		<label class="layui-form-label"  style="font-size: 16px;width: 100px;text-align: right;margin-left: -30px;">从码流：</label>
+		<div class="layui-input-inline">
+			<input type="radio" name="switch" id="slave_switch" lay-filter="switch_filter" value="1">
+		</div> 
+	</div>
+</div>
+	<div class="layui-tab-content" style="width:1200px;height:650px;margin-left:200px;">
+		<div class="layui-tab-item layui-show">
+			<iframe scrolling="no" frameborder="0"  src="masterVideoPage.html" style="width:1500px;height:800px;margin-top: -10px;"></iframe>
+		</div>
+	</div>
+</form>
+<script>
+function setCookie(name,value,time)
+{
+    var strsec = getsec(time);
+    var exp = new Date();
+    exp.setTime(exp.getTime() + strsec*1);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+function getsec(str)
+{
+   var str1=str.substring(1,str.length)*1;
+   var str2=str.substring(0,1);
+   if (str2=="s")
+       return str1*1000;
+   else if (str2=="h")
+       return str1*60*60*1000;
+   else if (str2=="d")
+       return str1*24*60*60*1000;
+}
+function getCookie(name){
+	var strcookie = document.cookie;
+	var arrcookie = strcookie.split("; ");
+	for ( var i = 0; i < arrcookie.length; i++) {
+		var arr = arrcookie[i].split("=");
+		if (arr[0] == name)
+				return arr[1];
+	}
+		return "";
+}
+			
+
+layui.use(['element','form','layer'], function(){
+		var $ = layui.jquery
+		,element = layui.element
+		,layer = layui.layer
+		,form = layui.form;
+		form.on('radio(switch_filter)', function (data) {
+				if(parseInt(data.value) == 0) {
+					var url ="masterVideoPage.html";
+					$('iframe').attr('src',url);
+				}
+				if(parseInt(data.value) == 1) {
+					var url ="slaveVideoPage.html";
+					$('iframe').attr('src',url);
+				}
+		});
+		layer.ready(function(){
+		      var json_data= {
+				"configlist":{
+					"video.switch":"video.switch",
+					"video.rtspaddr":"video.rtspaddr",
+					"action": 0,
+				},
+				"return_value": 0
+			}
+			$.ajax({
+				type:"POST",
+				url:'../cgi-bin/webTransData.cgi',
+				ContentType:"application/json;charset=utf-8",
+				dataType:"json",
+				data:JSON.stringify(json_data),
+				success:function(data){
+					var slaveSwitchStatus = data['video.switch'].ch1.status;
+					var masterRtspaddr = data['video.rtspaddr'].ch0.rtspaddr;
+					var slaveRtspaddr = data['video.rtspaddr'].ch1.rtspaddr;
+					var master_w = data['video.rtspaddr'].ch0.width;
+					var master_h = data['video.rtspaddr'].ch0.height;
+					var slave_w = data['video.rtspaddr'].ch1.width;
+					var slave_h = data['video.rtspaddr'].ch1.height;
+					var masterRtspAddr =  unescape(getCookie("masterRtspaddr"));
+					if(masterRtspAddr == ""){
+				        var url ="masterVideoPage.html";
+						$('iframe').attr('src',url);
+					}
+					setCookie("masterRtspaddr",masterRtspaddr,"d30");
+					setCookie("slaveRtspaddr",slaveRtspaddr,"d30");
+					setCookie("master_w",master_w,"d30");
+					setCookie("master_h",master_h,"d30");
+					setCookie("slave_w",slave_w,"d30");
+					setCookie("slave_h",slave_h,"d30");
+					
+				if(Number(slaveSwitchStatus) == 0)
+						document.getElementById('slave').style.display="none";
+				},error:function(data){
+					alert(Error);
+				}
+			});
+		});
+		form.render();
+});
+</script>
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body scrolling="yes">             
+	<div class="layui-tab layui-tab-card">
+		<ul class="layui-tab-title" style="margin-left: 10px;">
+			<li class="layui-this" onclick="ispPage()">ISP Controller</li>
+			<li onclick="encoderPage()">Encoder</li>
+			<li onclick="helpSetPage()">HELP</li>
+		</ul>
+		<div class="layui-tab-content" style="width:100%;height:95%;">
+			<div >
+				<iframe scrolling="yes" id="frameC" frameborder="0"  src="ispcontrolSet.html" style="width:100%;height:100%;"></iframe>
+			</div>
+		</div>
+	 </div>
+<script>
+   function ispPage(){
+		frameC.src = "ispcontrolSet.html"
+   }
+   function encoderPage(){
+		frameC.src = "encoderSet.html"
+   }
+   function helpSetPage(){
+		frameC.src = "helpSet.html"
+   }
+	layui.use('element', function(){
+		var $ = layui.jquery
+		,element = layui.element;
+	});
+</script>
+</body>
+</html>

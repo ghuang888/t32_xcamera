@@ -1,0 +1,161 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+	<legend>基本信息设置</legend>
+</fieldset>
+<div class="main" id="big">
+	<div class="divForm" style="margin-top:50px;margin-left:450px;">
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px" text-align:right;>设备名称</label>
+			<div class="layui-input-inline">
+				<input type="text" id="name" name="name" disabled="disabled" style="width: 400px;font-size: 14px;" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px" text-align:right;>设备型号</label>
+			<div class="layui-input-inline">
+				<input type="text" id="model" name="model" style="width: 400px; font-size: 14px;" disabled="disabled" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px" text-align:right;>设备编号</label>
+			<div class="layui-input-inline">
+				<input type="text" id="number" name="number" style="width: 400px;font-size: 14px;" disabled="disabled" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px" text-align:right;>内核版本</label>
+			<div class="layui-input-inline">
+				<input type="text" id="kernel_version" name="kernel_version" style="width: 400px; font-size: 14px;" disabled="disabled" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px" text-align:right;>服务器版本</label>
+			<div class="layui-input-inline">
+				<input type="text" id="server_version" name="server_version" style="width: 400px; font-size: 14px;" disabled="disabled" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" style="font-size: 16px;text-align:right;">网页版本</label>
+			<div class="layui-input-inline">
+				<input type="text" id="broType" name="broType" style="width: 400px; font-size: 14px;" disabled="disabled" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+layui.use('form', function() { 
+	var form = layui.form
+	,$ = layui.jquery;　　
+	form.render();
+	document.getElementById("big").style.width = document.body.offsetWidth;
+	document.getElementById('broType').value = getExplorerInfo().type + "-" + getExplorerInfo().version;
+	var json_data= {
+			"configlist":{
+				"product.information": "product.information",
+				"action": 0,
+			},
+			"return_value": 0,
+		}
+		$.ajax({
+			type:"POST",
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(json_data),
+			success:function(data){
+				document.getElementById('name').value = data['product.information'].name;
+				document.getElementById('model').value = data['product.information'].model;
+				document.getElementById('number').value = data['product.information'].number;
+				document.getElementById('kernel_version').value = data['product.information'].kernel_version;
+				document.getElementById('server_version').value = data['product.information'].server_version;
+			},error:function(data){
+				alert("Error");
+			}
+		});
+});
+/* function save(){
+	layui.use(['util', 'laydate', 'layer'], function() {
+		var util = layui.util	
+		,$ = layui.jquery
+		,layer = layui.layer;
+		var name = document.getElementById('name').value;
+		var json_data= {
+			"configlist": {
+				"product.information": "product.information",
+				"action": 0,
+			},
+			"product.infomation": {
+				"name":name,
+			},
+			"return_value": 0,
+		}
+		var myMsg = layer.msg('确认修改？', {
+			time: 10000,
+			area: ['220px', '110px'],
+			btn: ['是', '否'],
+			btnAlign: 'c',
+			yes: function(index, layero){
+				layer.close(myMsg);
+				var title = document.getElementById('name').value;
+				$.ajax({
+					type:"GET",
+					url:'../cgi-bin/webTransData.cgi',
+					ContentType:"application/json;charset=utf-8",
+					dataType:"json",
+					data:JSON.stringify(json_data),
+					success:function(data){
+						layer.msg("修改成功");
+					},error:function(data){
+						alert("ERROR");
+					}
+				});
+			}
+		});
+	});
+}
+*/
+function getExplorerInfo() {
+	var explorer = window.navigator.userAgent.toLowerCase();
+	//ie
+	if (explorer.indexOf("msie") >= 0) {
+		var ver = explorer.match(/msie ([\d.]+)/)[1];
+		return { type: "IE", version: ver };
+	}
+	//firefox
+	else if (explorer.indexOf("firefox") >= 0) {
+		var ver = explorer.match(/firefox\/([\d.]+)/)[1];
+		return { type: "Firefox", version: ver };
+	}
+	//Chrome
+	else if (explorer.indexOf("chrome") >= 0) {
+		var ver = explorer.match(/chrome\/([\d.]+)/)[1];
+		return { type: "Chrome", version: ver };
+	}
+	//Opera
+	else if (explorer.indexOf("opera") >= 0) {
+		var ver = explorer.match(/opera.([\d.]+)/)[1];
+		return { type: "Opera", version: ver };
+	}
+	//Safari
+	else if (explorer.indexOf("Safari") >= 0) {
+		var ver = explorer.match(/version\/([\d.]+)/)[1];
+		return { type: "Safari", version: ver };
+	}
+}
+</script>
+</body>
+</html>

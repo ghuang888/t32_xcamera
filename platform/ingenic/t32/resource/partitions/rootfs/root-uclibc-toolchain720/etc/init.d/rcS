@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Set mdev
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/sbin/mdev -s && echo "mdev is ok......"
+
+# create console and null node for nfsroot
+#mknod -m 600 /dev/console c 5 1
+#mknod -m 666 /dev/null c 1 3
+
+# Set Global Environment
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export PATH=/system/bin:$PATH
+export LD_LIBRARY_PATH=/system/lib
+export TZ=CST-8
+
+# networking
+ifconfig lo up
+#ifconfig eth0 192.168.1.80
+
+# Start telnet daemon
+telnetd &
+
+# Set the system time from the hardware clock
+#hwclock -s
+
+#add rtsp send encoder buffer
+sysctl -w net.core.wmem_max=26214400
+sysctl -w net.core.wmem_default=26214400
+
+# Format system patition if it is invalid
+mount -t jffs2 /dev/mtdblock5 /system
+
+# Run init script
+if [ -f /system/etc/app_init.sh ]; then
+    /system/etc/app_init.sh &
+fi

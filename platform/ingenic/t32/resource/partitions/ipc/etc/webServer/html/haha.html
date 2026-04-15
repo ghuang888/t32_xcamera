@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="canvas"></canvas>
+ 
+<script>
+// 假设你已经加载了 libde265 的 wasm 文件和相关的 JavaScript 接口
+ 
+// 创建 canvas 元素并获取上下文
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+ 
+// 假设 imageData 是通过解码器解码后的图片数据
+function displayHEVCImage(imageData) {
+  // 设置 canvas 的宽度和高度
+  canvas.width = imageData.width;
+  canvas.height = imageData.height;
+ 
+  // 获取图片数据并绘制到 canvas
+  var imgData = new ImageData(imageData.data, imageData.width, imageData.height);
+  ctx.putImageData(imgData, 0, 0);
+}
+ 
+// 假设 loadHEVCImage 是用来加载并解码 HEVC 图片的函数
+loadHEVCImage('/home/user/module/snap-0.jpg', function(imageData) {
+  displayHEVCImage(imageData);
+});
+</script>
+</body>
+</html>

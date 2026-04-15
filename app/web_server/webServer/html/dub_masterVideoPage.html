@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>两个VLC播放器示例</title>
+</head>
+<body>
+<div style="display: block; width: 100%;height: 500px;">
+    <div style="position: fixed; width: 50%; height: 500px;" >
+        <h2>视频播放器1</h2>
+        <!-- 第一个VLC播放器实例 -->
+        <div class="div">
+            <object type='application/x-vlc-plugin' id='vlc1' events='True' width="720" height="405">
+                <param name='mrl' value='' />
+                <script type="text/javascript">
+                    function getCookie(name){
+                        var strcookie = document.cookie;
+                        var arrcookie = strcookie.split("; ");
+                    for ( var i = 0; i < arrcookie.length; i++) {
+                            var arr = arrcookie[i].split("=");
+                            if (arr[0] == name)
+                                return arr[1];
+                        }
+                        return "";
+                    }
+                    var masterRtspAddr =  unescape(getCookie("masterRtspaddr"));
+                    document.getElementById("vlc1").getElementsByTagName("param")[0].value = masterRtspAddr;
+                    console.log(masterRtspAddr);
+                </script>
+                <param name='volume' value='50' />
+                <param name='autoplay' value='True' />
+                <param name='loop' value='false' />
+            <param name='ShowDisplay' value='True' />
+            <param name='EnableContextMenu' value='True' />
+                <param name='fullscreen' value='False' />
+                <param name='EnablePositionControls' value='0' />
+            </object>
+        </div>
+    </div>
+    <div style="position: fixed; width: 50%; height: 500px; margin-left: 50%;" >
+        <h2>视频播放器2</h2>
+        <!-- 第二个VLC播放器实例 -->
+        <div class="div">
+            <object type='application/x-vlc-plugin' id='vlc2' events='True' width="720" height="405">
+                <param name='mrl' value='' />
+                <script type="text/javascript">
+                    function getCookie(name){
+                        var strcookie = document.cookie;
+                        var arrcookie = strcookie.split("; ");
+                    for ( var i = 0; i < arrcookie.length; i++) {
+                            var arr = arrcookie[i].split("=");
+                            if (arr[0] == name)
+                                return arr[1];
+                        }
+                        return "";
+                    }
+                    var masterRtspAddr =  unescape(getCookie("masterRtspaddr"));
+                    var url2 = masterRtspAddr.replace("stream0", "stream3");
+                    document.getElementById("vlc2").getElementsByTagName("param")[0].value = url2;
+                    console.log(masterRtspAddr, url2);
+                </script>
+                <param name='volume' value='50' />
+                <param name='autoplay' value='True' />
+                <param name='loop' value='false' />
+            <param name='ShowDisplay' value='True' />
+            <param name='EnableContextMenu' value='True' />
+                <param name='fullscreen' value='False' />
+                <param name='EnablePositionControls' value='0' />
+            </object>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

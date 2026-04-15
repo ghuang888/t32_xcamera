@@ -1,0 +1,100 @@
+{
+    "project": 0,
+    "chip": "t40xp",
+    "version": {
+        "major": 0,
+        "minor": 0
+    },
+	"copy.files": [
+		{
+			"src":"../_out/u-boot-with-spl.bin",
+			"dst":"./"
+		},
+		{
+			"src":"../_out/uImage",
+			"dst":"./uImage"
+		},
+		{
+			"src":"../platform/ingenic/t40/resource/partitions/rootfs/root-uclibc-toolchain-7.2.0-1.0.squashfs",
+			"dst":"./"
+		},
+		{
+			"src":"../platform/ingenic/t40/resource/partitions/ipc",
+			"dst":"./"
+		},
+		{
+			"src":"../_out/sinfo.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/avpu.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/tx-isp-t40.ko",
+			"dst":"./ipc/lib/modules"
+		},
+		{
+			"src":"../_out/xcam_daemon",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"../_out/mac_set",
+			"dst":"./ipc/bin"
+		},
+		{
+			"src":"../_out/xcamera",
+			"dst":"./ipc/bin"
+		}
+	],
+	"copy.sensors": {
+		"sensors": ["sc500ai"],
+		"src_drv":"../_out",
+		"dst_drv":"./ipc/lib/modules",
+		"src_setting":"../_out/",
+		"dst_setting":"./ipc/etc/sensor"
+	},
+	"//": "size unit is K Bytes",
+    "partitions": {
+        "uboot": {
+			"file":"u-boot-with-spl.bin",
+            "offset": 0,
+            "size": 256
+        },
+        "reserved": {
+			"file":"",
+            "offset": 256,
+            "size": 64
+        },
+        "rootfs": {
+			"file":"root-uclibc-toolchain-7.2.0-1.0.squashfs",
+            "offset": 320,
+            "size": 1728
+        },
+        "conf": {
+			"file":"",
+            "offset": 2048,
+            "size": 64
+        },
+        "kernel": {
+			"file":"uImage",
+            "offset": 2112,
+            "size": 2176
+        },
+        "ipc": {
+			"file":"./ipc.bin",
+            "offset": 4288,
+            "size": 12096
+        }
+    },
+    "packages": [
+        {
+			"name":"ipc",
+			"parts":["ipc"]
+        },
+        {
+            "name": "all",
+            "parts":["uboot", "reserved", "rootfs", "conf", "kernel", "ipc"]
+        }
+    ]
+}

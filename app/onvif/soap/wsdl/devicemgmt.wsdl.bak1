@@ -1,0 +1,1288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../../../ver20/util/onvif-wsdl-viewer.xsl"?>
+<!--
+Copyright (c) 2008-2018 by ONVIF: Open Network Video Interface Forum. All rights reserved.
+
+Recipients of this document may copy, distribute, publish, or display this document so long as this copyright notice, license and disclaimer are retained with all copies of the document. No license is granted to modify this document.
+
+THIS DOCUMENT IS PROVIDED "AS IS," AND THE CORPORATION AND ITS MEMBERS AND THEIR AFFILIATES, MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, OR TITLE; THAT THE CONTENTS OF THIS DOCUMENT ARE SUITABLE FOR ANY PURPOSE; OR THAT THE IMPLEMENTATION OF SUCH CONTENTS WILL NOT INFRINGE ANY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
+IN NO EVENT WILL THE CORPORATION OR ITS MEMBERS OR THEIR AFFILIATES BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES, ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT, WHETHER OR NOT (1) THE CORPORATION, MEMBERS OR THEIR AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, OR (2) SUCH DAMAGES WERE REASONABLY FORESEEABLE, AND ARISING OUT OF OR RELATING TO ANY USE OR DISTRIBUTION OF THIS DOCUMENT.  THE FOREGOING DISCLAIMER AND LIMITATION ON LIABILITY DO NOT APPLY TO, INVALIDATE, OR LIMIT REPRESENTATIONS AND WARRANTIES MADE BY THE MEMBERS AND THEIR RESPECTIVE AFFILIATES TO THE CORPORATION AND OTHER MEMBERS IN CERTAIN WRITTEN POLICIES OF THE CORPORATION.
+-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" targetNamespace="http://www.onvif.org/ver10/device/wsdl">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://www.onvif.org/ver10/device/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" elementFormDefault="qualified" version="18.12">
+			<xs:import namespace="http://www.onvif.org/ver10/schema" schemaLocation="./onvif.xsd"/>
+			<!--===============================-->
+			<xs:element name="GetServices">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="IncludeCapability" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Indicates if the service capabilities (untyped) should be included in the response.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetServicesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Service" type="tds:Service" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Each Service element contains information about one service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:complexType name="Service">
+				<xs:sequence>
+					<xs:element name="Namespace" type="xs:anyURI">
+						<xs:annotation>
+							<xs:documentation>Namespace of the service being described. This parameter allows to match the service capabilities to the service. Note that only one set of capabilities is supported per namespace.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="XAddr" type="xs:anyURI">
+						<xs:annotation>
+							<xs:documentation>The transport addresses where the service can be reached. The scheme and IP part shall match the one used in the request (i.e. the GetServices request).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Capabilities" minOccurs="0">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:any namespace="##any" processContents="lax">
+									<xs:annotation>
+										<xs:documentation>The placeholder for the service capabilities. The service capability element shall be returned here. For example for the device service that would be the tds:DeviceServiceCapabilities element (not complextype).</xs:documentation>
+									</xs:annotation>
+								</xs:any>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Version" type="tt:OnvifVersion">
+						<xs:annotation>
+							<xs:documentation>The version of the service (not the ONVIF core spec version).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>   <!-- first Vendor then ONVIF -->
+				</xs:sequence>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:element name="GetServiceCapabilities">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetServiceCapabilitiesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Capabilities" type="tds:DeviceServiceCapabilities">
+							<xs:annotation>
+								<xs:documentation>The capabilities for the device service is returned in the Capabilities element.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:complexType name="DeviceServiceCapabilities">
+				<xs:sequence>
+					<xs:element name="Network" type="tds:NetworkCapabilities">
+						<xs:annotation>
+							<xs:documentation>Network capabilities.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Security" type="tds:SecurityCapabilities">
+						<xs:annotation>
+							<xs:documentation>Security capabilities.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="System" type="tds:SystemCapabilities">
+						<xs:annotation>
+							<xs:documentation>System capabilities.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Misc" type="tds:MiscCapabilities" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Capabilities that do not fit in any of the other categories.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="Capabilities" type="tds:DeviceServiceCapabilities"/>
+			<!--===============================-->
+			<xs:complexType name="NetworkCapabilities">
+				<xs:attribute name="IPFilter" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for IP filtering.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="ZeroConfiguration" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for zeroconf.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="IPVersion6" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for IPv6.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DynDNS" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for dynamic DNS configuration.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Dot11Configuration" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for IEEE 802.11 configuration.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Dot1XConfigurations" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Indicates the maximum number of Dot1X configurations supported by the device</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HostnameFromDHCP" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for retrieval of hostname from DHCP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DHCPv6" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for Stateful IPv6 DHCP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:simpleType name="EAPMethodTypes">
+				<xs:list itemType="xs:int"/>
+			</xs:simpleType>
+			<xs:complexType name="SecurityCapabilities">
+				<xs:attribute name="TLS1.0" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for TLS 1.0.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TLS1.1" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for TLS 1.1.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="TLS1.2" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for TLS 1.2.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="OnboardKeyGeneration" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for onboard key generation.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="AccessPolicyConfig" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for access policy configuration.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DefaultAccessPolicy" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for the ONVIF default access policy.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="Dot1X" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for IEEE 802.1X configuration.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="X.509Token" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Security X.509 token.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SAMLToken" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Security SAML token.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="KerberosToken" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Security Kerberos token.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="UsernameToken" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Security Username token.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HttpDigest" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS over HTTP digest authenticated communication layer.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="RELToken" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Security REL token.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SupportedEAPMethods" type="tds:EAPMethodTypes">
+					<xs:annotation>
+						<xs:documentation>EAP Methods supported by the device. The int values refer to the <a href="http://www.iana.org/assignments/eap-numbers/eap-numbers.xhtml">IANA EAP Registry</a>.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="MaxUsers" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>The maximum number of users that the device supports.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="MaxUserNameLength" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Maximum number of characters supported for the username by CreateUsers.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="MaxPasswordLength" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Maximum number of characters supported for the password by CreateUsers and SetUser.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:complexType name="SystemCapabilities">
+				<xs:attribute name="DiscoveryResolve" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS Discovery resolve requests.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="DiscoveryBye" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for WS-Discovery Bye.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="RemoteDiscovery" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for remote discovery.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SystemBackup" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for system backup through MTOM.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="SystemLogging" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for retrieval of system logging through MTOM.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="FirmwareUpgrade" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for firmware upgrade through MTOM.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HttpFirmwareUpgrade" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for firmware upgrade through HTTP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HttpSystemBackup" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for system backup through HTTP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HttpSystemLogging" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for retrieval of system logging through HTTP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="HttpSupportInformation" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for retrieving support information through HTTP.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="StorageConfiguration" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>Indicates support for storage configuration interfaces.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="MaxStorageConfigurations" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>Indicates maximum number of storage configurations supported.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="GeoLocationEntries" type="xs:int">
+					<xs:annotation>
+						<xs:documentation>If present signals support for geo location. The value signals the supported number of entries.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="AutoGeo" type="tt:StringAttrList">
+					<xs:annotation>
+						<xs:documentation>List of supported automatic GeoLocation adjustment supported by the device. Valid items are defined by tds:AutoGeoMode.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="StorageTypesSupported" type="tt:StringAttrList">
+					<xs:annotation>
+						<xs:documentation>Enumerates the supported StorageTypes, see tds:StorageType.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:simpleType name="AutoGeoModes">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Location">
+						<xs:annotation>	
+							<xs:documentation>Automatic adjustment of the device location.</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="Heading">
+						<xs:annotation>	
+							<xs:documentation>Automatic adjustment of the device orientation relative to the compass also called yaw.</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+					<xs:enumeration value="Leveling">
+						<xs:annotation>	
+							<xs:documentation>Automatic adjustment of the deviation from the horizon also called pitch and roll.</xs:documentation>
+						</xs:annotation>
+					</xs:enumeration>
+    			</xs:restriction>
+			</xs:simpleType>
+			<!--===============================-->
+			<xs:complexType name="MiscCapabilities">
+				<xs:attribute name="AuxiliaryCommands" type="tt:StringAttrList">
+					<xs:annotation>
+						<xs:documentation>Lists of commands supported by SendAuxiliaryCommand.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:anyAttribute processContents="lax"/>
+			</xs:complexType>
+			<!--===============================-->
+			<xs:element name="GetDeviceInformation">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDeviceInformationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Manufacturer" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The manufactor of the device.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="Model" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The device model.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="FirmwareVersion" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The firmware version in the device.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="SerialNumber" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The serial number of the device.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="HardwareId" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>The hardware ID of the device.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetSystemDateAndTime">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DateTimeType" type="tt:SetDateTimeType">
+							<xs:annotation>
+								<xs:documentation>Defines if the date and time is set via NTP or manually.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DaylightSavings" type="xs:boolean">
+							<xs:annotation>
+								<xs:documentation>Automatically adjust Daylight savings if defined in TimeZone.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="TimeZone" type="tt:TimeZone" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>The time zone in POSIX 1003.1 format</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="UTCDateTime" type="tt:DateTime" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Date and time in UTC. If time is obtained via NTP, UTCDateTime has no meaning</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetSystemDateAndTimeResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetSystemDateAndTime">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSystemDateAndTimeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SystemDateAndTime" type="tt:SystemDateTime">
+							<xs:annotation>
+								<xs:documentation>Contains information whether system date and time are set manually or by NTP, daylight savings is on or off, time zone in POSIX 1003.1 format and system date and time in UTC and also local system date and time.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetSystemFactoryDefault">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FactoryDefault" type="tt:FactoryDefaultType">
+							<xs:annotation>
+								<xs:documentation>Specifies the factory default action type.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetSystemFactoryDefaultResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="UpgradeSystemFirmware">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Firmware" type="tt:AttachmentData"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UpgradeSystemFirmwareResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Message" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SystemReboot">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SystemRebootResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Message" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Contains the reboot message sent by the device.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="RestoreSystem">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BackupFiles" type="tt:BackupFile" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RestoreSystemResponse">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetSystemBackup">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSystemBackupResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BackupFiles" type="tt:BackupFile" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetSystemSupportInformation">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSystemSupportInformationResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SupportInformation" type="tt:SupportInformation">
+							<xs:annotation>
+								<xs:documentation>Contains the arbitary device diagnostics information.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetSystemLog">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="LogType" type="tt:SystemLogType">
+							<xs:annotation>
+								<xs:documentation>Specifies the type of system log to get.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetSystemLogResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SystemLog" type="tt:SystemLog">
+							<xs:annotation>
+								<xs:documentation>Contains the system log information.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetScopes">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetScopesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Scopes" type="tt:Scope" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Contains a list of URI definining the device scopes. Scope parameters can be of two types: fixed and configurable. Fixed parameters can not be altered.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetUsers">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetUsersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="User" type="tt:User" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Contains a list of the onvif users and following information is included in each entry: username and user level.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="CreateUsers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="User" type="tt:User" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Creates new device users and corresponding credentials. Each user entry includes: username, password and user level. Either all users are created successfully or a fault message MUST be returned without creating any user. If trying to create several users with exactly the same username the request is rejected and no users are created. If password is missing, then fault message Too weak password is returned.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateUsersResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="DeleteUsers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Username" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Deletes users on an device and there may exist users that cannot be deleted to ensure access to the unit. Either all users are deleted successfully or a fault message MUST be returned and no users be deleted. If a username exists multiple times in the request, then a fault message is returned.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteUsersResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetUser">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="User" type="tt:User" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>Updates the credentials for one or several users on an device. Either all change requests are processed successfully or a fault message MUST be returned. If the request contains the same username multiple times, a fault message is returned. </xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetUserResponse">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetWsdlUrl">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetWsdlUrlResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="WsdlUrl" type="xs:anyURI"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetCapabilities">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Category" type="tt:CapabilityCategory" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>
+									List of categories to retrieve capability information on.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCapabilitiesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Capabilities" type="tt:Capabilities">
+							<xs:annotation>
+								<xs:documentation>
+									Capability information.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetHostname">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetHostnameResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HostnameInformation" type="tt:HostnameInformation">
+							<xs:annotation>
+								<xs:documentation>Contains the hostname information.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetDNS">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDNSResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DNSInformation" type="tt:DNSInformation">
+							<xs:annotation>
+								<xs:documentation>
+									DNS information.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="GetNetworkInterfaces">
+				<xs:complexType>
+					<xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetNetworkInterfacesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NetworkInterfaces" type="tt:NetworkInterface" minOccurs="1" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>
+									List of network interfaces.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+			<xs:element name="SetNetworkInterfaces">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="InterfaceToken" type="tt:ReferenceToken">
+							<xs:annotation>
+								<xs:documentation>
+									Symbolic network interface name.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NetworkInterface" type="tt:NetworkInterfaceSetConfiguration">
+							<xs:annotation>
+								<xs:documentation>
+									Network interface name.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SetNetworkInterfacesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RebootNeeded" type="xs:boolean" minOccurs="1" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>
+									Indicates whether or not a reboot is required after configuration updates.
+									If a device responds with RebootNeeded set to false, the device can be reached
+									via the new IP address without further action. A client should be aware that a device
+									may not be responsive for a short period of time until it signals availability at
+									the new address via the discovery Hello messages.
+									If a device responds with RebootNeeded set to true, it will be further available under
+									its previous IP address. The settings will only be activated when the device is
+									rebooted via the SystemReboot command.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--===============================-->
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="GetServicesRequest">
+		<wsdl:part name="parameters" element="tds:GetServices"/>
+	</wsdl:message>
+	<wsdl:message name="GetServicesResponse">
+		<wsdl:part name="parameters" element="tds:GetServicesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetServiceCapabilitiesRequest">
+		<wsdl:part name="parameters" element="tds:GetServiceCapabilities"/>
+	</wsdl:message>
+	<wsdl:message name="GetServiceCapabilitiesResponse">
+		<wsdl:part name="parameters" element="tds:GetServiceCapabilitiesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetDeviceInformationRequest">
+		<wsdl:part name="parameters" element="tds:GetDeviceInformation"/>
+	</wsdl:message>
+	<wsdl:message name="GetDeviceInformationResponse">
+		<wsdl:part name="parameters" element="tds:GetDeviceInformationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetSystemDateAndTimeRequest">
+		<wsdl:part name="parameters" element="tds:SetSystemDateAndTime"/>
+	</wsdl:message>
+	<wsdl:message name="SetSystemDateAndTimeResponse">
+		<wsdl:part name="parameters" element="tds:SetSystemDateAndTimeResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemDateAndTimeRequest">
+		<wsdl:part name="parameters" element="tds:GetSystemDateAndTime"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemDateAndTimeResponse">
+		<wsdl:part name="parameters" element="tds:GetSystemDateAndTimeResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetSystemFactoryDefaultRequest">
+		<wsdl:part name="parameters" element="tds:SetSystemFactoryDefault"/>
+	</wsdl:message>
+	<wsdl:message name="SetSystemFactoryDefaultResponse">
+		<wsdl:part name="parameters" element="tds:SetSystemFactoryDefaultResponse"/>
+	</wsdl:message>
+	<wsdl:message name="UpgradeSystemFirmwareRequest">
+		<wsdl:part name="parameters" element="tds:UpgradeSystemFirmware"/>
+	</wsdl:message>
+	<wsdl:message name="UpgradeSystemFirmwareResponse">
+		<wsdl:part name="parameters" element="tds:UpgradeSystemFirmwareResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SystemRebootRequest">
+		<wsdl:part name="parameters" element="tds:SystemReboot"/>
+	</wsdl:message>
+	<wsdl:message name="SystemRebootResponse">
+		<wsdl:part name="parameters" element="tds:SystemRebootResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemBackupRequest">
+		<wsdl:part name="parameters" element="tds:GetSystemBackup"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemBackupResponse">
+		<wsdl:part name="parameters" element="tds:GetSystemBackupResponse"/>
+	</wsdl:message>
+	<wsdl:message name="RestoreSystemRequest">
+		<wsdl:part name="parameters" element="tds:RestoreSystem"/>
+	</wsdl:message>
+	<wsdl:message name="RestoreSystemResponse">
+		<wsdl:part name="parameters" element="tds:RestoreSystemResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemSupportInformationRequest">
+		<wsdl:part name="parameters" element="tds:GetSystemSupportInformation"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemSupportInformationResponse">
+		<wsdl:part name="parameters" element="tds:GetSystemSupportInformationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemLogRequest">
+		<wsdl:part name="parameters" element="tds:GetSystemLog"/>
+	</wsdl:message>
+	<wsdl:message name="GetSystemLogResponse">
+		<wsdl:part name="parameters" element="tds:GetSystemLogResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetUsersRequest">
+		<wsdl:part name="parameters" element="tds:GetUsers"/>
+	</wsdl:message>
+	<wsdl:message name="GetUsersResponse">
+		<wsdl:part name="parameters" element="tds:GetUsersResponse"/>
+	</wsdl:message>
+	<wsdl:message name="CreateUsersRequest">
+		<wsdl:part name="parameters" element="tds:CreateUsers"/>
+	</wsdl:message>
+	<wsdl:message name="CreateUsersResponse">
+		<wsdl:part name="parameters" element="tds:CreateUsersResponse"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteUsersRequest">
+		<wsdl:part name="parameters" element="tds:DeleteUsers"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteUsersResponse">
+		<wsdl:part name="parameters" element="tds:DeleteUsersResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetUserRequest">
+		<wsdl:part name="parameters" element="tds:SetUser"/>
+	</wsdl:message>
+	<wsdl:message name="SetUserResponse">
+		<wsdl:part name="parameters" element="tds:SetUserResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetWsdlUrlRequest">
+		<wsdl:part name="parameters" element="tds:GetWsdlUrl"/>
+	</wsdl:message>
+	<wsdl:message name="GetWsdlUrlResponse">
+		<wsdl:part name="parameters" element="tds:GetWsdlUrlResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetCapabilitiesRequest">
+		<wsdl:part name="parameters" element="tds:GetCapabilities"/>
+	</wsdl:message>
+	<wsdl:message name="GetCapabilitiesResponse">
+		<wsdl:part name="parameters" element="tds:GetCapabilitiesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetHostnameRequest">
+		<wsdl:part name="parameters" element="tds:GetHostname"/>
+	</wsdl:message>
+	<wsdl:message name="GetHostnameResponse">
+		<wsdl:part name="parameters" element="tds:GetHostnameResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetDNSRequest">
+		<wsdl:part name="parameters" element="tds:GetDNS"/>
+	</wsdl:message>
+	<wsdl:message name="GetDNSResponse">
+		<wsdl:part name="parameters" element="tds:GetDNSResponse"/>
+	</wsdl:message>
+	<wsdl:message name="GetNetworkInterfacesRequest">
+		<wsdl:part name="parameters" element="tds:GetNetworkInterfaces"/>
+	</wsdl:message>
+	<wsdl:message name="GetNetworkInterfacesResponse">
+		<wsdl:part name="parameters" element="tds:GetNetworkInterfacesResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SetNetworkInterfacesRequest">
+		<wsdl:part name="parameters" element="tds:SetNetworkInterfaces"/>
+	</wsdl:message>
+	<wsdl:message name="SetNetworkInterfacesResponse">
+		<wsdl:part name="parameters" element="tds:SetNetworkInterfacesResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="Device">
+		<wsdl:operation name="GetServices">
+			<wsdl:documentation>Returns information about services on the device.</wsdl:documentation>
+			<wsdl:input message="tds:GetServicesRequest"/>
+			<wsdl:output message="tds:GetServicesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetServiceCapabilities">
+			<wsdl:documentation>Returns the capabilities of the device service. The result is returned in a typed answer.</wsdl:documentation>
+			<wsdl:input message="tds:GetServiceCapabilitiesRequest"/>
+			<wsdl:output message="tds:GetServiceCapabilitiesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetDeviceInformation">
+			<wsdl:documentation>This operation gets basic device information from the device.</wsdl:documentation>
+			<wsdl:input message="tds:GetDeviceInformationRequest"/>
+			<wsdl:output message="tds:GetDeviceInformationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetSystemDateAndTime">
+			<wsdl:documentation>This operation sets the device system date and time. The device shall support the
+				configuration of the daylight saving setting and of the manual system date and time (if
+				applicable) or indication of NTP time (if applicable) through the SetSystemDateAndTime
+				command. <br/>
+				If system time and date are set manually, the client shall include UTCDateTime in the request.<br/>
+				A TimeZone token which is not formed according to the rules of IEEE 1003.1 section 8.3 is considered as invalid timezone.<br/>
+				The DayLightSavings flag should be set to true to activate any DST settings of the TimeZone string. 
+				Clear the DayLightSavings flag if the DST portion of the TimeZone settings should be ignored.
+			</wsdl:documentation>
+			<wsdl:input message="tds:SetSystemDateAndTimeRequest"/>
+			<wsdl:output message="tds:SetSystemDateAndTimeResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemDateAndTime">
+			<wsdl:documentation>This operation gets the device system date and time. The device shall support the return of
+				the daylight saving setting and of the manual system date and time (if applicable) or indication
+				of NTP time (if applicable) through the GetSystemDateAndTime command.<br/>
+				A device shall provide the UTCDateTime information.</wsdl:documentation>
+			<wsdl:input message="tds:GetSystemDateAndTimeRequest"/>
+			<wsdl:output message="tds:GetSystemDateAndTimeResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetSystemFactoryDefault">
+			<wsdl:documentation>This operation reloads the parameters on the device to their factory default values.</wsdl:documentation>
+			<wsdl:input message="tds:SetSystemFactoryDefaultRequest"/>
+			<wsdl:output message="tds:SetSystemFactoryDefaultResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="UpgradeSystemFirmware">
+			<wsdl:documentation>This operation upgrades a device firmware version. After a successful upgrade the response
+				message is sent before the device reboots. The device should support firmware upgrade
+				through the UpgradeSystemFirmware command. The exact format of the firmware data is
+				outside the scope of this standard.</wsdl:documentation>
+			<wsdl:input message="tds:UpgradeSystemFirmwareRequest"/>
+			<wsdl:output message="tds:UpgradeSystemFirmwareResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SystemReboot">
+			<wsdl:documentation>This operation reboots the device.</wsdl:documentation>
+			<wsdl:input message="tds:SystemRebootRequest"/>
+			<wsdl:output message="tds:SystemRebootResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="RestoreSystem">
+			<wsdl:documentation>This operation restores the system backup configuration files(s) previously retrieved from a
+				device. The device should support restore of backup configuration file(s) through the
+				RestoreSystem command. The exact format of the backup configuration file(s) is outside the
+				scope of this standard. If the command is supported, it shall accept backup files returned by
+				the GetSystemBackup command.</wsdl:documentation>
+			<wsdl:input message="tds:RestoreSystemRequest"/>
+			<wsdl:output message="tds:RestoreSystemResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemBackup">
+			<wsdl:documentation>This operation is retrieves system backup configuration file(s) from a device. The device
+				should support return of back up configuration file(s) through the GetSystemBackup command.
+				The backup is returned with reference to a name and mime-type together with binary data.
+				The exact format of the backup configuration files is outside the scope of this standard.</wsdl:documentation>
+			<wsdl:input message="tds:GetSystemBackupRequest"/>
+			<wsdl:output message="tds:GetSystemBackupResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemLog">
+			<wsdl:documentation>This operation gets a system log from the device. The exact format of the system logs is outside the scope of this standard.</wsdl:documentation>
+			<wsdl:input message="tds:GetSystemLogRequest"/>
+			<wsdl:output message="tds:GetSystemLogResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemSupportInformation">
+			<wsdl:documentation>This operation gets arbitary device diagnostics information from the device.</wsdl:documentation>
+			<wsdl:input message="tds:GetSystemSupportInformationRequest"/>
+			<wsdl:output message="tds:GetSystemSupportInformationResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetUsers">
+			<wsdl:documentation>This operation lists the registered users and corresponding credentials on a device. The
+				device shall support retrieval of registered device users and their credentials for the user
+				token through the GetUsers command.</wsdl:documentation>
+			<wsdl:input message="tds:GetUsersRequest"/>
+			<wsdl:output message="tds:GetUsersResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="CreateUsers">
+			<wsdl:documentation>This operation creates new device users and corresponding credentials on a device for authentication purposes. 
+				The device shall support creation of device users and their credentials through the CreateUsers
+				command. Either all users are created successfully or a fault message shall be returned
+				without creating any user.<br/>
+				ONVIF compliant devices are recommended to support password length of at least 28 bytes,
+				as clients may follow the password derivation mechanism which results in 'password
+				equivalent' of length 28 bytes, as described in section 3.1.2 of the ONVIF security white paper.</wsdl:documentation>
+			<wsdl:input message="tds:CreateUsersRequest"/>
+			<wsdl:output message="tds:CreateUsersResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUsers">
+			<wsdl:documentation>This operation deletes users on a device. The device shall support deletion of device users and their credentials 
+				through the DeleteUsers command. A device may have one or more fixed users
+				that cannot be deleted to ensure access to the unit. Either all users are deleted successfully or a
+				fault message shall be returned and no users be deleted.</wsdl:documentation>
+			<wsdl:input message="tds:DeleteUsersRequest"/>
+			<wsdl:output message="tds:DeleteUsersResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetUser">
+			<wsdl:documentation>This operation updates the settings for one or several users on a device for authentication purposes.
+				The device shall support update of device users and their credentials through the SetUser command. 
+				Either all change requests are processed successfully or a fault message shall be returned and no change requests be processed.</wsdl:documentation>
+			<wsdl:input message="tds:SetUserRequest"/>
+			<wsdl:output message="tds:SetUserResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetWsdlUrl">
+			<wsdl:documentation>It is possible for an endpoint to request a URL that can be used to retrieve the complete
+				schema and WSDL definitions of a device. The command gives in return a URL entry point
+				where all the necessary product specific WSDL and schema definitions can be retrieved. The
+				device shall provide a URL for WSDL and schema download through the GetWsdlUrl command.</wsdl:documentation>
+			<wsdl:input message="tds:GetWsdlUrlRequest"/>
+			<wsdl:output message="tds:GetWsdlUrlResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetCapabilities">
+			<wsdl:documentation>This method has been replaced by the more generic GetServices method.
+			 For capabilities of individual services refer to the GetServiceCapabilities methods.</wsdl:documentation>
+			<wsdl:input message="tds:GetCapabilitiesRequest"/>
+			<wsdl:output message="tds:GetCapabilitiesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetHostname">
+			<wsdl:documentation>This operation is used by an endpoint to get the hostname from a device. The device shall
+				return its hostname configurations through the GetHostname command.</wsdl:documentation>
+			<wsdl:input message="tds:GetHostnameRequest"/>
+			<wsdl:output message="tds:GetHostnameResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetDNS">
+			<wsdl:documentation>This operation gets the DNS settings from a device. The device shall return its DNS
+				configurations through the GetDNS command.</wsdl:documentation>
+			<wsdl:input message="tds:GetDNSRequest"/>
+			<wsdl:output message="tds:GetDNSResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="GetNetworkInterfaces">
+			<wsdl:documentation>This operation gets the network interface configuration from a device. The device shall
+				support return of network interface configuration settings as defined by the NetworkInterface
+				type through the GetNetworkInterfaces command.</wsdl:documentation>
+			<wsdl:input message="tds:GetNetworkInterfacesRequest"/>
+			<wsdl:output message="tds:GetNetworkInterfacesResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="SetNetworkInterfaces">
+			<wsdl:documentation>This operation sets the network interface configuration on a device. The device shall support
+				network configuration of supported network interfaces through the SetNetworkInterfaces
+				command.<br/>
+				For interoperability with a client unaware of the IEEE 802.11 extension a device shall retain
+				its IEEE 802.11 configuration if the IEEE 802.11 configuration element isn’t present in the
+				request.</wsdl:documentation>
+			<wsdl:input message="tds:SetNetworkInterfacesRequest"/>
+			<wsdl:output message="tds:SetNetworkInterfacesResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DeviceBinding" type="tds:Device">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="GetServices">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetServices"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetServiceCapabilities">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetServiceCapabilities"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDeviceInformation">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetDeviceInformation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetSystemDateAndTime">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/SetSystemDateAndTime"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemDateAndTime">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetSystemDateAndTime"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetSystemFactoryDefault">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/SetSystemFactoryDefault"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="UpgradeSystemFirmware">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/UpgradeSystemFirmware"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SystemReboot">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/SystemReboot"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RestoreSystem">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/RestoreSystem"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemBackup">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetSystemBackup"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemLog">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetSystemLog"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSystemSupportInformation">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetSystemSupportInformation"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetUsers">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetUsers"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateUsers">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/CreateUsers"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteUsers">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/DeleteUsers"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetUser">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/SetUser"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetWsdlUrl">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetWsdlUrl"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCapabilities">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetCapabilities"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetHostname">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetHostname"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDNS">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetDNS"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetNetworkInterfaces">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/GetNetworkInterfaces"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SetNetworkInterfaces">
+			<soap:operation soapAction="http://www.onvif.org/ver10/device/wsdl/SetNetworkInterfaces"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<!--===============================-->
+	<!--===============================-->
+</wsdl:definitions>

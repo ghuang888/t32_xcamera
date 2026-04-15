@@ -1,0 +1,4 @@
+sensor_name:imx327
+sensor_i2c:0x1a
+sensor_width:1920
+sensor_height:1080

@@ -1,0 +1,40 @@
+--- include/api/cn/imp/imp_encoder.h
++++ include/api/cn/imp/imp_encoder.h
+@@ -639,9 +639,8 @@ typedef struct {
+  * 定义H.264和H.265编码Channel设置ROI QP模式
+  */
+ typedef enum {
+-	IMP_ROI_QPMODE_DISABLE		= 0,	/**< 关闭ROI */
+-	IMP_ROI_QPMODE_FIXED_QP		= 1,	/**< 绝对ROI */
+-	IMP_ROI_QPMODE_DELTA		= 2,	/**< 相对ROI */
++	IMP_ROI_QPMODE_FIXED_QP      = 0,	/**< 绝对ROI */
++	IMP_ROI_QPMODE_DELTA         = 1,	/**< 相对ROI */
+ 	IMP_ROI_QPMODE_MAX_ENUM,
+ } IMPEncoderQPMode;
+ 
+@@ -663,22 +662,14 @@ typedef struct {
+ 	IMPEncoderROICfg roi[IMP_ENC_ROI_WIN_COUNT];	/**< ROI属性 */
+ } IMPEncoderROIAttr;
+ 
+-/**
+- * 定义Map ROI映射类型
+- */
+-typedef enum {
+-	IMP_MAPPINGTYPE_DIRECT,		/**< 直接映射 */
+-	IMP_MAPPINGTYPE_DEVIOUS,	/**< 间接映射 */
+-	IMP_MAPPINGTYPE_BUTT,		/**< 用于判断参数的有效性，必须小于此值 */
+-} IMPEncoderMappingType;
+-
+ /**
+  * 定义H.264和H.265编码Channel设置Map ROI属性
+  */
+ typedef struct {
+ 	uint8_t*				map;		/**< Map ROI属性数组指针 */
+-	uint32_t				mapSize;	/**< Map ROI属性数组大小 */
+-	IMPEncoderMappingType	type;		/**< Map映射类型 */
++	int						mapSize;	/**< Map ROI属性数组大小 */
++	IMPEncoderQPMode        mode;		/**< QP模式 */
++	int8_t					Quality;	/**< 相对或绝对qp值 */
+ 	int32_t					reserved;	/**< 保留参数 */
+ } IMPEncoderMapRoiCfg;
+ 

@@ -1,0 +1,64 @@
+/* styles.css */
+
+/* 基本样式 */
+.tree ul {
+    list-style-type: none;
+    padding-left: 10px;
+    display: block;
+}
+
+.tree li {
+    /* margin: 5px 0; */
+}
+
+/* 默认隐藏子节点 */
+.nested {
+    display: block;
+}
+
+/* 添加箭头样式 */
+.caret {
+    cursor: pointer;
+    user-select: none;
+}
+
+.caret::before {
+    content: "▶";
+    color: black;
+    margin-right: 6px;
+}
+
+/* 当节点展开时，箭头旋转 */
+.caret-down::before {
+    content: "▼";
+}
+
+/* 叶子节点样式 */
+.leaf {
+    display: block;
+    float: right;
+    margin-bottom: 5px; /* 确保叶节点和输入框之间有一定的间距 */
+}
+
+/* 输入框容器样式 */
+.input-container {
+    display: flex;
+    margin-left: 10px; /* 输入框相对于叶节点缩进 */
+}
+
+/* 输入框样式 */
+.node-input {
+    float: flex;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    padding: 2px;
+    font-size: 14px;
+    height: 20px;
+    width: 150px; /* 设置输入框宽度 */
+}
+
+button{
+    display: flex;
+    float: left;
+    margin-left: 20px;
+}

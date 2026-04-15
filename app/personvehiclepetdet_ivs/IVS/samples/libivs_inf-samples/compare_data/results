@@ -1,0 +1,92 @@
+./sample-personvehicleDet ../../../NV12/000000001000_w640_h384.nv12 640 384
+[TNPU] driver version 0x20240301
+personvehicle detect
+INFO(ivs): personvehicledet uranus version:0.0.5(00000005_1c7836a)  built:20240909-1023(5.4.0 mips@aie)
+magik_load_model start
+MGK Header:
+  Magic:   49 4d 47 4b 01 01 01 01 07 00 00 00 00 00 00 00
+  Class:                             Mgk32
+  Status:                            Release
+  Data:                              ORI (Original data encoding)
+  Version:                           1 (current)
+  Type:                              STA (Single static model file)
+  Machine:                           Ingenic T41
+  Version:                           0x1
+  Start of model parse headers:      1071815 (bytes into file)
+  Start of model library headers:    1071759 (bytes into file)
+  Size of this header:               88 (bytes)
+  Size of model parse headers:       24 (bytes)
+  Number of model parse headers:     4
+  Size of model library headers:     56 (bytes)
+  Number of model library headers:   1
+  Start of static data segment:      218220 (bytes into file)
+  Size of static data segment:       816256 (bytes)
+  Mllib header string table index:   2
+  Size of operator library headers:     24 (bytes)
+  Number of operator library headers:   1
+  Start of operator library headers:    1071911 (bytes into file)
+
+Model Library Headers:
+  [Nr] Name              ID  Type          Off    Size   DynSize  StaSize StaOff  Flg Lk Inf
+  [ 0] model              0  MODEL         000000 031114 00000000 0c7480  000000   LX  1   0
+Key to Flags:
+  L (link), X (execute), G (group), S (Shared), x (unknown)
+
+Model Parse Headers:
+  [Nr] Name              ID  Type          Off    Size   Lk
+  [ 0] model              1  PARAM         0fc8ec 0090e4  0
+  [ 1] .mlstrtab          2  STRTAB        1059d0 000022  7
+  [ 2] .verstr            3  STRTAB        1059f2 00002d 17
+  [ 3] .version           4  NOTE          105a1f 000070 25
+
+Model Parse Headers:
+  [Nr] ID    Off    Size
+  [ 0]  0  031114 017240 
+
+String table '.mlstrtab' contains 5 entries:
+  [  0]  
+  [  1]  model
+  [  7]  .mlstrtab
+  [ 17]  .verstr
+  [ 25]  .version
+
+Version segment '.version' contains 5 entries:
+  Name                  Version
+  MAGIK CORE VER        0.5.0
+  MAGIK CORE GIT        f20e681
+  VENUS INFER KIT VER   0.2.5.2.ALPHA
+  VENUS INFER KIT GIT   de83629
+  MAGIK TRANS KIT GIT   1896097
+Memory information:
+        No shared dynamic memory.
+        Model memory information:
+                net                    : 0x9519c8
+                mem alloc mode         : Dynamic memory no shared, Static memory from internal
+                static memory address  : 0x76ac9000
+                dynamic memory address : (nil)
+                dynamic memory size    : 0
+                --------------------------------------------------------------
+check_model_file  time : 5704.530762 ms
+Memory information:
+        No shared dynamic memory.
+        Model memory information:
+                net                    : 0x9519c8
+                mem alloc mode         : Dynamic memory no shared, Static memory from internal
+                static memory address  : 0x76ac9000
+                dynamic memory address : 0x76752000
+                dynamic memory size    : 2350080
+                --------------------------------------------------------------
+det_size: 640
+classes: 16
+INFO(ivs): personvehicledet param: frameWidth: 640, frameHeight: 384, multiprocess_lock: 0, nmem_size:0,  model_size: 0, check_model: 0, ptime: 1, mod:0, skip_num: 0, max_personvehicle_box: 20, detdist: 0, det_size: 0, sense: 3, rot90: 0, switch_personvehicle_track: 0, track_lifecycle: 0, switch_stop_det: 0, enable_move: 0, open_move_filter: 0, move_sense: 0, move_min_h: 0, move_min_w: 0, move_sldwin_size: 0, move_ids_size: 0, enable_perm: 0, permcnt: 0
+r->count 7
+personvehicle location: trackID[-1], classID[0], confidence[0.895620], [510, 149, 639, 383] 
+personvehicle location: trackID[-1], classID[0], confidence[0.893586], [262, 78, 358, 332] 
+personvehicle location: trackID[-1], classID[0], confidence[0.877851], [117, 121, 196, 309] 
+personvehicle location: trackID[-1], classID[0], confidence[0.830941], [407, 167, 518, 381] 
+personvehicle location: trackID[-1], classID[0], confidence[0.825932], [44, 146, 110, 316] 
+personvehicle location: trackID[-1], classID[0], confidence[0.768028], [334, 116, 415, 363] 
+personvehicle location: trackID[-1], classID[0], confidence[0.728927], [183, 131, 288, 335] 
+isperson: 0
+
+logout network: 0x9519c8

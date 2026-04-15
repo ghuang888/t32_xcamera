@@ -1,0 +1,17 @@
+编译静态库的方法：
+1、g++ RCF.cpp -c -I ../../include/ -lpthread -ldl -luuid
+2、ar rcs libRCF.a RCF.o
+
+
+编译动态库方法：
+1、g++ -shared -fpic -o libRCF.so RCF.cpp -I ../include/ -lpthread -ldl -luuid
+
+
+交叉编译库
+
+动态库：
+1、mips-linux-gnu-g++ -muclibc -O2 -shared -fPIC -o libRCF.so RCF.cpp -I ../../include/ -L. -luuid -ldl -pthread
+
+静态库：若是uclibc的库，需要加-muclibc的选项
+1、mips-linux-gnu-g++ RCF.cpp -c -I ../../include/ -lpthread -ldl -luuid
+2、mips-linux-gnu-ar rcs libRCF.a RCF.o

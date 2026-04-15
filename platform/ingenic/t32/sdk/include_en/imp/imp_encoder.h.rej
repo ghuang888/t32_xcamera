@@ -1,0 +1,42 @@
+--- include/api/en/imp/imp_encoder.h
++++ include/api/en/imp/imp_encoder.h
+@@ -646,9 +646,8 @@ typedef struct {
+  * Define H.264 and H.265 channel ROI QP mode
+  */
+ typedef enum {
+-	IMP_ROI_QPMODE_DISABLE		= 0,	/**< Disable ROI */
+-	IMP_ROI_QPMODE_FIXED_QP		= 1,	/**< Absolute ROI */
+-	IMP_ROI_QPMODE_DELTA		= 2,	/**< Relative ROI */
++	IMP_ROI_QPMODE_FIXED_QP      = 0,	/**< Absolute ROI */
++	IMP_ROI_QPMODE_DELTA         = 1,		/**< Relative ROI */
+ 	IMP_ROI_QPMODE_MAX_ENUM,
+ } IMPEncoderQPMode;
+ 
+@@ -670,24 +669,14 @@ typedef struct {
+ 	IMPEncoderROICfg roi[IMP_ENC_ROI_WIN_COUNT];	/**< ROI attribute */
+ } IMPEncoderROIAttr;
+ 
+-
+-/**
+- * Define the Map ROI type of mapping
+- */
+-typedef enum {
+-	IMP_MAPPINGTYPE_DIRECT,		/**< Direct mapping */
+-	IMP_MAPPINGTYPE_DEVIOUS,	/**< Devious mapping */
+-	IMP_MAPPINGTYPE_BUTT,		/**< Used to determine the validity of parameters, it must be less than this value */
+-} IMPEncoderMappingType;
+-
+-
+ /**
+  * Define H.264 and H.265 channel Map ROI attribute
+  */
+ typedef struct {
+ 	uint8_t*				map;		/**< Pointer to Map ROI attribute array */
+-	uint32_t				mapSize;	/**< Map ROI attribute array size */
+-	IMPEncoderMappingType	type;		/**< Map ROI type of mapping */
++	int						mapSize;	/**< Map ROI attribute array size */
++	IMPEncoderQPMode		mode;		/**< QP mode */
++	int8_t					Quality;	/**< Relative or absolute qp value */
+ 	int32_t					reserved;	/**< Reserved parameters */
+ } IMPEncoderMapRoiCfg;
+ 

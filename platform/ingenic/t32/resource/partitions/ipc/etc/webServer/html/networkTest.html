@@ -1,0 +1,172 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>网络测试</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<style>
+#divContent {
+	height: 350px;
+	width: 650px;
+	overflow: auto;
+	margin-left: 200px;
+	background: #000;
+	color: #C0C0C0;
+	font-size: 14px;
+	font-family: Lucida Console;
+}
+</style>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+	<legend>网络诊断参数设置</legend>
+</fieldset>
+<div id="divInput">
+	<div class="layui-form-item" style="width: 600px;">
+		<div class="layui-col-xs6">
+			<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">IP地址或域名：</label>
+		</div>
+		<div class="layui-col-xs6">
+			<input type="text" style="margin-left: -50px;" id="txtURL" name="url" placeholder="请输入IP地址或域名口" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item" style="width: 600px;">
+	  	<div class="layui-col-xs4">
+			<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">延时：</label>
+	  	</div>
+		<div class="layui-col-xs4">
+	    		<input type="text" style="margin-left: 50px;" id="txtTimeout" name="time" placeholder="请输入延时" value="2000" autocomplete="off" class="layui-input">
+	  	</div>
+		<div class="layui-col-xs4">
+			<div class="layui-form-mid layui-word-aux" style="margin-left: 80px;">(>1000)</div>
+		</div>
+	</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+</fieldset>
+	<div class="layui-form-item">
+	  	<div class="layui-input-block" >
+			<input type="button" id="btnSwitch" class="layui-btn" lay-submit="" lay-filter="send" style="margin-left: 200px;" value="发送" onclick="handleBtnClick()"></button>
+	  	</div>
+	</div>
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+	<legend>网络诊断结果</legend>
+</fieldset>
+<div id="divContent"></div>
+<script>
+var intStartTime;   
+var objIMG = new Image();
+objIMG.onload =
+objIMG.onerror =
+function()
+{
+    /* 有回应,取消超时计时 */   
+    clearTimeout(intTimerID);   
+    if(!bolIsRunning || bolIsTimeout)   
+        return;   
+    var delay = new Date() - intStartTime;   
+    println("Reply from " + strURL + " time" + ((delay<1)?("<1"):("="+delay)) + "ms");
+    arrDelays.push(delay);   
+    /*  每次请求间隔限制在1秒以上 */   
+    setTimeout(ping, delay<1000?(1000-delay):1000);   
+}
+function ping()
+{
+    /* 发送请求 */   
+    intStartTime = +new Date();   
+    intSent++;    
+    objIMG.src = strURL + "/" + intStartTime;   
+    bolIsTimeout = false;   
+    /* 超时计时 */   
+    intTimerID = setTimeout(timeout, intTimeout);   
+}
+function timeout()
+{
+    if(!bolIsRunning)   
+        return;   
+    bolIsTimeout = true;   
+    objIMG.src = "X:\\";   
+    println("Request timed out.");   
+    ping();   
+}
+</script>
+<script>
+var $ = function(v){return document.getElementById(v)};
+var arrDelays = [];
+var intSent;
+var bolIsRunning = false;
+var bolIsTimeout;
+var strURL;
+var intTimeout;
+var intTimerID;
+var objBtn = $("btnSwitch");
+var objContent = $("divContent");
+var objTxtURL = $("txtURL");
+objTxtURL.value = "193.169.3.132";
+function handleBtnClick()
+{
+	if(bolIsRunning){
+		/* 停止 */
+		var intRecv = arrDelays.length;
+		var intLost = intSent-intRecv;
+		var sum = 0;
+		for(var i=0; i<intRecv; i++)
+			sum += arrDelays[i];
+		objBtn.value = "发送";
+		bolIsRunning = false;
+
+		/* 统计结果 */
+		println("　");
+		println("Ping statistics for " + strURL + ":");
+		println("　　Packets: Sent = " + intSent + ", Received = " + intRecv + ", Lost = " + intLost + " (" + Math.floor(intLost / intSent * 100) + "% loss),");
+		if(intRecv == 0)
+		    	return;
+		println("Approximate round trip times in milli-seconds:");
+		println("　　Minimum = " + Math.min.apply(this, arrDelays) + "ms, Maximum = " + Math.max.apply(this, arrDelays) + "ms, Average = " + Math.floor(sum/intRecv) + "ms");
+	}
+ 	else{
+        /* 开始 */
+        strURL = objTxtURL.value;
+		if(strURL.length == 0)
+			return;
+		if(strURL.substring(0,7).toLowerCase() != "http://")
+			strURL = "http://" + strURL;
+		intTimeout = parseInt($("txtTimeout").value, 10);
+		if(isNaN(intTimeout))
+		    	intTimeout = 2000;
+		if(intTimeout < 1000)
+		   	intTimeout = 1000;
+		objBtn.value = "结束";
+		bolIsRunning = true;
+		arrDelays = [];
+		intSent = 0;
+		cls();
+		println("Pinging " + strURL + "\t" + "of\tdata" +":");
+		println("　");
+		ping();
+	}
+}
+function println(str)
+{
+    var objDIV = document.createElement("div");
+    if(objDIV.innerText != null)
+        	objDIV.innerText = str;
+    else
+        	objDIV.textContent = str;
+    objContent.appendChild(objDIV);
+    objContent.scrollTop = objContent.scrollHeight;
+}
+function cls()
+{
+    	objContent.innerHTML = "";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+<!--[if lt IE 9]>
+  <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+  <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]--> 
+</head>
+<body>        
+<fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+	<legend>SIP</legend>
+</fieldset>
+	<form class="layui-form">
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;color: red;">认证模式：</label>
+					</div>
+					<div class="layui-col-xs6">
+						<select name="authmode" id="authmode" style="width: 250px;" lay-verify="required" lay-search="">
+							<option value="0">GB28181</option>
+							<option value="3">GB35114</option>
+						</select>
+					</div>  
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label"  style="font-size: 16px;width: 200px;text-align: right;">开关：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="radio" name="sipswitch" id="sipswitch_open" value="1" title="开" checked="">
+						<input type="radio" name="sipswitch" id="sipswitch_close" value="0" title="关">
+					</div>
+				</div>
+			</div>
+		</div>	
+<fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+	<legend></legend>
+</fieldset>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">SIP服务器ID：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="serverid" name="serverid" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">SIP服务器IP：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="serverip" name="serverip"　 placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">SIP服务器端口：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="serverport" name="serverport" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">系统ID：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="logindomain" name="logindomain" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备ID：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="deviceid" name="deviceid"  placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备端口：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="localport" name="localport" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">认证密码：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" id="authpasswd" name="authpasswd" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">协议类型：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<select name="transtype" id="transtype" style="width: 250px;" lay-verify="required" lay-search="">
+							<option value="0">UDP</option>
+							<option value="3">TCP</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">刷新注册间隔：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="expires" id="expires" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">心跳周期：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="heartbeatinterval" id="heartbeatinterval" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">心跳超时间隔：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="heartbeatcount" id="heartbeatcount" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">本地码流输出端口：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="mediaport" id="mediaport" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+				<button type="submit" class="layui-btn" id="sip_sub" lay-submit="" lay-filter="sip_sub" style="display:block;margin:0 auto;">保存</button>
+		</div>
+	</form>
+<fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+	<legend>Base</legend>
+</fieldset>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备名称：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="name" id="name" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备厂商：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="manufacturer" id="manufacturer" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">模组型号：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="model" id="model" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备归属：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="owner" id="owner" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">行政区域：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="civilcode" id="civilcode" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">警区：</label>
+					</div>
+					<div class="layui-col-xs6">
+						<input type="text" name="block" id="block" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500px;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">设备安装地址：</label>
+					</div>
+					<div class="layui-col-xs6">
+						<input type="text" name="address" id="address" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;"></label>
+					</div>
+					<div class="layui-col-xs6"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+				<button type="submit" class="layui-btn" id="base_sub" lay-submit="" lay-filter="base_sub" style="display:block;margin:0 auto;">保存</button>
+		</div>
+<!--
+<fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+	<legend>位置信息</legend>
+</fieldset>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">位置信息：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="codeRate" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 200px;">
+					<div class="layui-col-xs6"></div>	
+					<div class="layui-col-xs6"></div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline">
+			<div class="layui-form-item" style="width: 1500;">
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 150px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">经度：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="codeRate" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-col-xs6" style="width: 500px;margin-left: 200px;">
+					<div class="layui-col-xs6">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;">纬度：</label>
+					</div>	
+					<div class="layui-col-xs6">
+						<input type="text" name="codeRate" placeholder="" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+-->
+<script>
+layui.use(['form', 'layedit', 'laydate'], function(){
+	var form = layui.form
+	,layer = layui.layer
+	,layedit = layui.layedit
+	,$ = layui.jquery
+	,laydate = layui.laydate;
+	form.render();
+	//init
+	var json_data= {
+			"configlist":{
+				"sip.config":"sip.config",
+				"action": 0
+			},
+			"return_value": 0
+		}
+	$.ajax({
+			type:"POST",
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(json_data),
+			success:function(data){
+		//sip
+			
+	   		$("#authmode").val(Number(data['sip.config'].authmode));
+	   		var sip_switch = data['sip.config'].transtype;
+			if(sip_switch==1)
+				$("input[name='sipswitch'][value='1']").attr("checked",true);
+			else
+				$("input[name='sipswitch'][value='0']").attr("checked",true);
+			document.getElementById('serverid').value = data['sip.config'].serverid;	
+			document.getElementById('serverip').value = data['sip.config'].serverip;
+			document.getElementById('serverport').value = data['sip.config'].serverport;
+			document.getElementById('logindomain').value = data['sip.config'].logindomain;
+			document.getElementById('deviceid').value = data['sip.config'].deviceid;
+			document.getElementById('localport').value = data['sip.config'].localport;
+			document.getElementById('authpasswd').value = data['sip.config'].authpasswd;
+			$("#authmode").val(Number(data['sip.config'].authmode));
+			$("#transtype").val(Number(data['sip.config'].transtype));
+			document.getElementById('expires').value = data['sip.config'].expires;
+			document.getElementById('heartbeatinterval').value = data['sip.config'].heartbeatinterval;
+			document.getElementById('heartbeatcount').value = data['sip.config'].heartbeatcount;
+			document.getElementById('mediaport').value = data['sip.config'].mediaport;
+		//base
+		/*	document.getElementById('name').value = data['base.config'].name;
+			document.getElementById('manufacturer').value = data['base.config'].manufacturer;
+			document.getElementById('model').value = data['base.config'].model;
+			document.getElementById('owner').value = data['base.config'].owner;
+			document.getElementById('civilcode').value = data['base.config'].civilcode;
+			document.getElementById('block').value = data['base.config'].block;
+			document.getElementById('address').value = data['base.config'].address; */
+			form.render();
+			},error:function(data){
+				alert("Data Error!");
+			}
+		});
+	
+	//  sip表单提交 
+	form.on('submit(sip_sub)',function (){
+		alert(Number($('input[name="sipswitch"]:checked ').val())+"--"+document.getElementById('serverid').value+"--"+Number($("#authmode").val())+"--"+Number($("#transtype").val()));
+		var sipInfo= {
+			"configlist":{
+				"sip.config":"sip.config",
+				"action": 1
+			},
+			"sip.config":{
+				"sipswitch":Number($('input[name="sipswitch"]:checked ').val()),
+				"serverid":document.getElementById('serverid').value,
+				"serverip":document.getElementById('serverip').value,
+				"serverport":Number(document.getElementById('serverport').value),
+				"logindomain":document.getElementById('logindomain').value,
+				"deviceid":document.getElementById('deviceid').value,
+				"localport":Number(document.getElementById('localport').value),
+				"authpasswd":document.getElementById('authpasswd').value,
+				"authmode":Number($("#authmode").val()),
+				"transtype":Number($("#transtype").val()),
+				"expires":Number(document.getElementById('expires').value),
+				"heartbeatinterval":Number(document.getElementById('heartbeatinterval').value),
+				"heartbeatcount":Number(document.getElementById('heartbeatcount').value),
+				"mediaport":Number(document.getElementById('mediaport').value),
+			},
+			"return_value": 0
+		}
+		$.ajax({
+			type:"POST",
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(sipInfo),
+			success:function(data){
+				alert("Success");
+			},error:function(data){
+				alert("Error");
+			}
+		}); 
+		return false;  	      
+	});
+});
+</script>
+</body>
+</html>

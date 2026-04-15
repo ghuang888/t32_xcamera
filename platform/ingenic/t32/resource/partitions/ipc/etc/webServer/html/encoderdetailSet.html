@@ -1,0 +1,237 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>基本信息</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/html5.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="layui/layui.js"></script>
+	</head>
+	<body>
+		<form class="layui-form">
+			<div class="main" style="width:500px;margin-left: 250px;">
+				<div class="layui-inline">
+					<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: -50px;">主码流：</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="switch" id="master_switch" checked="checked" lay-filter="switch_filter" value="0">
+					</div>
+				</div>
+				<div class="layui-inline" id="slave">
+					<label class="layui-form-label" style="font-size: 16px;width: 100px;text-align: right;margin-left: -10px;">从码流：</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="switch" id="slave_switch" lay-filter="switch_filter" value="1">
+					</div>
+				</div>
+			</div>
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<legend>Display</legend>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width: 1500px;">
+						<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 50px;">Enabled</label>
+						<div class="layui-input-block">
+							<input type="checkbox" name="display" lay-skin="primary">
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<br>
+				<div class="layui-form-item" style="width: 1000px;">
+					<div class="layui-col-xs3">
+						<label class="layui-form-label" style="text-align: right; margin-left: 50px;">EncType：</label>
+					</div>
+					<div class="layui-col-xs3">
+						<input type="number" id="enctype" name="enctype" style="font-size: 14px;margin-left: -60px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+					<div class="layui-col-xs3">
+						<label class="layui-form-label" style="text-align: right;width: 200px; margin-left: -50px;">Rate Controller
+							Method：</label>
+					</div>
+					<div class="layui-col-xs3" style="margin-left: -50px;">
+						<select name="ratecontrollermethod" id="ratecontrollermethod" lay-verify="">
+							<option value="0">CappedQual</option>
+						</select>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<legend>Capped QYALITY Parameters</legend>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uTargetBitRate：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uTargetBitRate" name="uTargetBitRate" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uMaxBitRate：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uMaxBitRate" name="uMaxBitRate" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">iInitialQP：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="iInitialQP" name="iInitialQP" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">iMinQP：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="iMinQP" name="iMinQP" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">iMaxQP：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="iMaxQP" name="iMaxQP" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">iIPDelta：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="iIPDelta" name="iIPDelta" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">iPBDelta：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="iPBDelta" name="iPBDelta" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">eRcOptions：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="eRcOptions" name="eRcOptions" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uMaxPictureSize：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uMaxPictureSize" name="uMaxPictureSize" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uMaxPSNR：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uMaxPSNR" name="uMaxPSNR" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<legend>Encoder GOP Parameters</legend>
+				<br>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uGopCtrlMode：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uGopCtrlMode" name="uGopCtrlMode" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uGopLength：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uGopLength" name="uGopLength" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uNumB：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uNumB" name="uNumB" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uFreqIDR：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uFreqIDR" name="uFreqIDR" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">bEnableLT：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="bEnableLT" name="bEnableLT" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">uFreqLT：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="uFreqLT" name="uFreqLT" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs3">
+							<label class="layui-form-label" style="text-align: right; margin-left: 50px;">bLTRC：</label>
+						</div>
+						<div class="layui-col-xs3">
+							<input type="text" id="bLTRC" name="bLTRC" style="font-size: 14px;margin-left: -50px;" lay-verify="title"
+							 class="layui-input">
+						</div>
+						<div class="layui-col-xs3"></div>
+						<div class="layui-col-xs3"></div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<br>
+				<div class="layui-inline">
+					<div class="layui-form-item" style="width: 1000px;">
+						<div class="layui-col-xs6">
+							<button type="button" class="layui-btn" id="setdefault_btn" lay-submit="setdefault_btn" lay-filter="setdefault_btn" style="display:block;margin-left: 100px;width: 150px;">Set Default</button>
+						</div>
+						<div class="layui-col-xs6">
+							<button type="button" class="layui-btn" id="confirm_btn" lay-submit="confirm_btn" lay-filter="confirm_btn" style="display:block;margin-left: 230px;width: 150px;">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<script>
+			layui.use('form', function() {
+				var form = layui.form,
+					$ = layui.jquery;
+				form.render();
+			});
+		</script>
+	</body>
+</html>

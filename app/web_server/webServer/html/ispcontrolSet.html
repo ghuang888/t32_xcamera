@@ -1,0 +1,578 @@
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>基本信息</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<script src="js/html5.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="layui/layui.js"></script>
+		<style>
+			.layui-field-box{
+				text-align: center;
+				margin-left:200px;
+			}
+			option:checked {
+				background-color: #5FB878;
+			}
+		</style>
+	</head>
+	<body>
+		<form class="layui-form">
+			<fieldset class="layui-elem-field" style="font-size: 20px;">
+				<legend>Image Enhancement</legend>
+				<div class="layui-field-box">
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">WDR 功能</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="wdr" lay-filter="wdr" name="wdr" lay-skin="primary" disabled="disabled" >
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">3D 降噪</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="noisereduction" lay-filter="noisereduction" name="noisereduction" lay-skin="primary" >
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;"  >DRC</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="drc" lay-filter="drc" name="drc" lay-skin="primary" disabled="disabled">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">夜视模式</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="nightvisionmode" lay-filter="nightvisionmode" name="nightvisionmode" lay-skin="primary">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">图像镜像</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="imagemirror" lay-filter="imagemirror" name="imagemirror" lay-skin="primary">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">图像翻转</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="imageflip" lay-filter="imageflip" name="imageflip" lay-skin="primary">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;"  >IRCUT</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+								<input type="checkbox" id="ircut" lay-filter="ircut" name="ircut" lay-skin="primary" disabled="disabled">
+							</div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field" style="font-size: 16px;">
+				<legend>ISP Controller</legend>
+				<div class="layui-field-box">
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">饱和度</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+									<input type="number" id="saturation" lay-filter="saturation" name="saturation" lay-verify="number|saturation" style="width: 300px;font-size: 14px;" lay-verify="title"
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">亮度</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+									<input type="number" id="brightness" lay-filter="brightness" name="brightness" lay-verify="number|brightness" style="width: 300px;font-size: 14px;" lay-verify="title"
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">锐度</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+									<input type="number" id="sharpness" lay-filter="sharpness" name="sharpness" lay-verify="number|sharpness" style="width: 300px;font-size: 14px;" lay-verify="title"
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<div class="layui-form-item" style="width: 1500px;">
+							<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">对比度</label>
+							<div class="layui-input-inline" style="margin-left: 80px;">
+									<input type="number" id="contrast" lay-filter="contrast" name="contrast" lay-verify="number|contrast" style="width: 300px;font-size: 14px;" lay-verify="title"
+								 class="layui-input">
+							</div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<div style="margin-left: 220px;">
+			<div class="layui-inline">
+				<div class="layui-form-item" style="width: 1500px;margin-top: 10px;">
+					<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">伽马</label>
+					<div class="layui-input-inline" style="margin-left: 80px;">
+							<input type="number" id="gamma" lay-filter="gamma" name="gamma" lay-verify="number|gamma" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-form-item" style="width: 1500px;">
+					<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">补光灯</label>
+					<div class="layui-input-inline" style="margin-left: 80px;">
+							<input type="number" id="filllight" lay-filter="filllight" name="filllight" lay-verify="number|filllight" style="width: 300px;font-size: 14px;" lay-verify="title"
+						 class="layui-input">
+					</div>
+				</div>
+			</div>
+			<div  style="width: 1500px;" >
+				<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">视角</label>
+				<div class="layui-input-inline" style="float: left; margin-left: 80px;">
+					<select name="visualangle" id="visualangle" lay-filter="visualangle" lay-verify="visualangle" style="width: 300px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+						<option value="0">正常</option>
+						<option value="1">俯视</option>
+						<option value="2">仰视</option>
+					</select> 
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-form-item" style="width: 1500px; margin-top: 12px;">
+					<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">背光</label>
+					<div class="layui-input-inline" style="margin-left: 80px;">
+						<select name="backlight" id="backlight" lay-filter="backlight" lay-verify="backlight" style="width: 300px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+							<option value="0">关闭</option>
+							<option value="1">开启</option>
+						</select> 
+					</div>
+				</div>
+			</div>
+			<div class="layui-inline">
+				<div class="layui-form-item" style="width: 1500px;">
+					<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">日夜模式</label>
+					<div class="layui-input-inline" style="margin-left: 80px;">
+						<select name="nightmode" id="nightmode" lay-filter="nightmode" lay-verify="nightmode" style="width: 300px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+							<option value="0">自动</option>
+							<option value="1">手动</option>
+						</select> 
+					</div>
+				</div>
+			</div>
+			<div  style="width: 1500px;" >
+				<label class="layui-form-label" style="font-size: 16px;width: 300px;text-align: right;margin-left: -220px;">白平衡</label>
+				<div class="layui-input-inline" style="float: left; margin-left: 80px;">
+					<select name="awb" id="awb" lay-filter="awb" lay-verify="awb" style="width: 300px; height:38px;font-size: 15px;background-color: white;border-color: #e6e6e6;">
+						<option value="0">自动模式</option>
+						<option value="1">手动模式</option>
+						<option value="2">晴天</option>
+						<option value="3">阴天</option>
+						<option value="4">白炽灯</option>
+						<option value="5">荧光灯</option>
+						<option value="6">黄昏</option>
+						<option value="7">阴影</option>
+						<option value="8">暖色荧光灯</option>
+					</select> 
+				</div>
+			</div>
+		</div>
+		<div class="layui-inline" style="margin-top: 30px; margin-left: 300px;">
+			<div class="layui-form-item" style="width: 1500px;">
+				<button type="submit" class="layui-btn" id="save_btn" lay-submit="save_btn" lay-filter="save_btn" style="display:block;width: 100px;margin-left: 220px;">保存</button>
+			</div>
+		</div>
+		<script>
+			layui.use(['form', 'layer'], function() {
+				var form = layui.form,
+				    $ = layui.jquery;
+				form.verify({
+					saturation: function (value) {
+						if (Number(value)<0 || Number(value)>255) {
+							return '参数范围必须在0~255之间(包括0和255)';
+						}
+					},
+					brightness: function (value) {
+						if (Number(value)<0 || Number(value)>255) {
+							return '参数范围必须在0~255之间(包括0和255)';
+						}
+					},
+					sharpness: function (value) {
+						if (Number(value)<0 || Number(value)>255) {
+							return '参数范围必须在0~255之间(包括0和255)';
+						}
+					},
+					contrast: function (value) {
+						if (Number(value)<0 || Number(value)>255) {
+							return '参数范围必须在0~255之间(包括0和255)';
+						}
+					}
+				});
+				var ispcontrolInfo= {
+					"configlist":{
+						"video.ispcontrolInfo":"video.ispcontrolInfo",
+						"video.image_control":"video.image_control",
+						"action": 0,
+					},
+					"return_value": 0,
+				};
+				$.ajax({
+					type:"POST",
+					url:'../cgi-bin/webTransData.cgi',
+					ContentType:"application/json;charset=utf-8",
+					dataType:"json",
+					data:JSON.stringify(ispcontrolInfo),
+					success:function(data){
+						if (data['video.ispcontrolInfo'].nightvisionmode == 1) {
+							$("#nightvisionmode").prop("checked", true);
+						} else {
+							$("#nightvisionmode").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].wdrmode == 1) {
+							$("#wdr").prop("checked", true);
+						} else {
+							$("#wdr").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].imagemirrormode == 1) {
+							$("#imagemirror").prop("checked", true);
+						} else {
+							$("#imagemirror").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].imageflipmode == 1) {
+							$("#imageflip").prop("checked", true);
+						} else {
+							$("#imageflip").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].drcmode >= 0 && data['video.ispcontrolInfo'].drcmode < 128) {
+							$("#drc").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].drcmode > 128 && data['video.ispcontrolInfo'].drcmode <= 255) {
+							$("#drc").prop("checked", true);
+						}
+						if (data['video.ispcontrolInfo'].noisereductionmode >= 0 && data['video.ispcontrolInfo'].drcmode < 128) {
+							$("#noisereduction").prop("checked", false);
+						}
+						if (data['video.ispcontrolInfo'].noisereductionmode > 128 && data['video.ispcontrolInfo'].drcmode <= 255) {
+							$("#noisereduction").prop("checked", true);
+						}
+						if (data['video.ispcontrolInfo'].ircutmode == 1) {
+							$("#ircut").prop("checked", true);
+						} else {
+							$("#ircut").prop("checked", false);
+						}
+						document.getElementById("saturation").value = data['video.image_control'].saturation;
+						document.getElementById("brightness").value = data['video.image_control'].brightness;
+						document.getElementById("sharpness").value = data['video.image_control'].sharpness;
+						document.getElementById("contrast").value = data['video.image_control'].contrast;
+						document.getElementById("gamma").value = data['video.image_control'].gamma;
+						document.getElementById("filllight").value = data['video.image_control'].filllight;
+						document.getElementById("awb").selectedIndex = data['video.image_control'].awb;
+						document.getElementById("visualangle").selectedIndex = data['video.image_control'].visualangle;
+						document.getElementById("backlight").selectedIndex = data['video.image_control'].backlight;
+						document.getElementById("nightmode").selectedIndex = data['video.image_control'].nightmode;
+						document.getElementsByClassName("layui-input layui-unselect").value = "晴天";
+						form.render();
+					},error:function(data){
+						//alert("Error");
+					}
+				});
+				// document.getElementsByClassName("layui-input layui-unselect").value = "晴天";
+				//nightvision_mode
+				form.on('checkbox(nightvisionmode)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var nightvisionmode_status = 0;
+					if (flag==true) {
+						nightvisionmode_status = 1;
+					} else {
+						nightvisionmode_status = 0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+							"nightvisionmode":Number(nightvisionmode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+				//wdr_mode
+				form.on('checkbox(wdr)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var wdrmode_status = 0;
+					if(flag==true){
+						wdrmode_status = 1;	
+					} else {
+						wdrmode_status = 0;	
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+								"wdr":Number(wdrmode_status)
+							},
+							"return_value": 0,
+						}
+						$.ajax({
+							type:"POST",
+							url:'../cgi-bin/webTransData.cgi',
+							ContentType:"application/json;charset=utf-8",
+							dataType:"json",
+							data:JSON.stringify(set_ispcontrolInfo),
+							success:function(data){
+								//alert("Success");
+							},error:function(data){
+								alert("Error");
+							}
+						});
+				});
+
+				//imagemirror_mode
+				form.on('checkbox(imagemirror)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var imagemirrormode_status = 0;
+					if (flag==true) {
+						imagemirrormode_status = 1;	
+					} else {
+						imagemirrormode_status = 0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+						"videp.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+							"imagemirror":Number(imagemirrormode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+
+				//imageflip_mode
+				form.on('checkbox(imageflip)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var imageflipmode_status = 0;
+					if (flag==true) {
+						imageflipmode_status = 1;
+					} else {
+						imageflipmode_status = 0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+							"imageflip":Number(imageflipmode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+
+				//ircut_mode
+				form.on('checkbox(ircut)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var ircutmode_status = 0;
+					if (flag==true) {
+						ircutmode_status = 1;
+					} else {
+						ircutmode_status =0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+							"ircut":Number(ircutmode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+
+				//noisereduction_mode
+				form.on('checkbox(noisereduction)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var noisereductionmode_status = 0;
+					if (flag==true) {
+						noisereductionmode_status = 255;
+					} else {
+						noisereductionmode_status =0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action":1
+						},
+						"video.ispcontrolInfo":{
+							"noisereduction":Number(noisereductionmode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+
+				//drc_mode
+				form.on('checkbox(drc)',function(data){
+					//alert(data.elem.checked);
+					var flag = data.elem.checked;
+					var drcmode_status = 0;
+					if (flag==true) {
+						drcmode_status = 255;	
+					} else {
+						drcmode_status = 0;
+					}
+					var set_ispcontrolInfo= {
+						"configlist":{
+							"video.ispcontrolInfo":"video.ispcontrolInfo",
+							"action": 1,
+						},
+						"video.ispcontrolInfo":{
+							"drc":Number(drcmode_status)
+						},
+						"return_value": 0,
+					}
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(set_ispcontrolInfo),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+
+				form.on('submit(save_btn)',function (){
+					var saturation = document.getElementById("saturation").value;
+					var brightness = document.getElementById("brightness").value;
+					var sharpness = document.getElementById("sharpness").value;
+					var contrast = document.getElementById("contrast").value;
+					var gamma = document.getElementById("gamma").value;
+					var filllight = document.getElementById("filllight").value;
+					var awb        = $("#awb").val();
+					var backlight        = $("#backlight").val();
+					var visualangle        = $("#visualangle").val();
+					var nightmode        = $("#nightmode").val();
+					var image_control= {
+						"configlist":{
+							"video.image_control":"video.image_control",
+							"action": 1,
+						},
+						"video.image_control":{
+							"saturation":Number(saturation),
+							"brightness":Number(brightness),
+							"sharpness":Number(sharpness),
+							"contrast":Number(contrast),
+							"awb":Number(awb),
+							"gamma":Number(gamma),
+							"filllight":Number(filllight),
+							"backlight":Number(backlight),
+							"visualangle":Number(visualangle),
+							"nightmode":Number(nightmode)
+						},
+						"return_value": 0
+					};
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(image_control),
+						success:function(data){
+							//alert("Success");
+						},error:function(data){
+							alert("Error");
+						}
+					});
+				});
+			});
+			document.getElementsByClassName("layui-select-title").value = "晴天";
+		</script>
+	</body>
+</html>

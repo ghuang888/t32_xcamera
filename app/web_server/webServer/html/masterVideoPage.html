@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel="stylesheet" href="layui/css/layui.css" media="all">
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+<div class="div">
+    <object type='application/x-vlc-plugin' id='vlc' events='True' width="1200" height="700">
+        <param name='mrl' value='' />
+		<script type="text/javascript">
+			function getCookie(name){
+				var strcookie = document.cookie;
+				var arrcookie = strcookie.split("; ");
+			for ( var i = 0; i < arrcookie.length; i++) {
+					var arr = arrcookie[i].split("=");
+					if (arr[0] == name)
+						return arr[1];
+				}
+				return "";
+			}
+			var masterRtspAddr =  unescape(getCookie("masterRtspaddr"));
+			document.getElementById("vlc").getElementsByTagName("param")[0].value = masterRtspAddr;
+		</script>
+        <param name='volume' value='50' />
+        <param name='autoplay' value='True' />
+        <param name='loop' value='false' />
+	<param name='ShowDisplay' value='True' />
+	<param name='EnableContextMenu' value='True' />
+        <param name='fullscreen' value='True' />
+        <param name='EnablePositionControls' value='0' />
+    </object>
+</div>
+</body>
+</html>

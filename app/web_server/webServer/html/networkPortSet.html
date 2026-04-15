@@ -1,0 +1,115 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+<form class="layui-form">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>网络端口设置</legend>
+	</fieldset>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width:200px;text-align: right;margin-left: 200px;">HTTP&nbsp;&nbsp;端口</label>
+			</div>	
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" name="http"lay-verify="http" id="http" style="width: 250px;font-size: 14px;" placeholder="请输入HTTP端口" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width:200px;text-align: right;margin-left: 200px;">RTSP&nbsp;&nbsp;端口</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" name="rstp" lay-verify="rstp" id="rstp" style="width: 250px;font-size: 14px;" placeholder="请输入RTSP端口" value="8554" readonly="readonly" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+	</fieldset>
+		<div class="layui-form-item">
+			<button type="submit" class="layui-btn" style="display:block;margin:0 auto;" lay-submit="" lay-filter="network_Sub">保存</button>
+		</div>
+</form>
+<script>
+layui.use('form', function() { 
+	var form = layui.form
+	,$ = layui.jquery;
+　　	form.render();
+	form.verify({
+		http:[
+			/^[0-9]$/ && /(^[1-9]\d{0,3}$)|(^[1-5]\d{4}$)|(^6[0-4]\d{3}$)|(^65[0-4]\d{2}$)|(^655[0-2]\d$)|(^6553[0-5]$)/
+			,'只能输入1-65535之间的整数！'
+							]
+	});
+	var getPortInfoJson={
+		        "configlist":{
+				"web.httpport":"web.httpport",
+				"action": 0
+			},
+			"return_value": 0
+		}   
+	$.ajax({
+		type:"POST",
+		url:'../cgi-bin/webTransData.cgi',
+		ContentType:"application/json;charset=utf-8",
+		dataType:"json",
+		data:JSON.stringify(getPortInfoJson),                                              
+		success:function(data){
+				document.getElementById('http').value=data['web.httpport'].port;
+		},error:function(data){                        
+				alert("ERROR");
+		}
+	});
+	form.on('submit(network_Sub)',function (){
+		var httpPortNum = document.getElementById('http').value;
+		var setPortInfoJson={
+			"configlist":{
+				"web.httpport":"web.httpport",
+				"action": 1
+			},
+		        "web.httpport":{
+				"port":parseInt(httpPortNum)
+			},
+			"return_value": 0
+		}
+		layer.msg('是否确认更改端口号？', {
+			time: 10000,                    //10s后自动关闭
+			area: ['220px', '110px'],       //弹窗大小
+			offset:'200px',
+			btn: ['是', '否'],              //弹窗按钮
+			btnAlign: 'c',                 //按钮居中
+			yes: function(index, layero){  //第一个按钮事件
+				layer.msg("正在修改,请稍后！！！",{offset:'200px',time:1000,shade:[0.8,'#CCCCCC']},function(){
+					$.ajax({
+						type:"POST",
+						url:'../cgi-bin/webTransData.cgi',
+						ContentType:"application/json;charset=utf-8",
+						dataType:"json",
+						data:JSON.stringify(setPortInfoJson),
+						success:function(data){
+					      		//alert(Success);
+						},error:function(data){  
+						      	//alert(Error);
+						}
+					});
+					layer.msg("修改成功！",{offset:'200px',time:2000},function() {
+		                    		parent.parent.location.reload();
+		                	});
+				});
+			}
+		});
+		return false;
+	});
+});
+</script>
+</body>
+</html>

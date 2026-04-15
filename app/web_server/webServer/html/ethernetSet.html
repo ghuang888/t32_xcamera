@@ -1,0 +1,214 @@
+<!--[if IE]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<![endif]-->
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>基本信息</title>
+<link rel="stylesheet" href="layui/css/layui.css"  media="all">
+<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+<style type="text/css">
+	.divForm{
+		width: 1960px;
+		height: 1080px;
+		text-align: center;
+	}
+</style>
+<form class="layui-form">            
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>DNS参数设置</legend>
+	</fieldset>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">DNS&nbsp;&nbsp;地址</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" name="dns" id = "dns" lay-verify="dns" placeholder="请输入DNS地址" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>以太网卡设置</legend>
+	</fieldset>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">IP&nbsp;&nbsp;地址</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" name="ipaddr" id ="ipaddr" lay-verify="ipaddr" placeholder="请输入IP地址" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">子网掩码</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" name="mask" id = "mask" lay-verify="mask" placeholder="请输入子网掩码" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">网关</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" id="gateway" name="gateway" lay-verify="gateway" placeholder="请输入网关" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item" style="width: 660px;">
+			<div class="layui-col-xs6">
+				<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">MAC&nbsp;&nbsp;地址</label>
+			</div>
+			<div class="layui-col-xs6">
+				<input type="text" style="margin-left: 150px;" id="macaddr" name="macaddr" disabled="disabled" lay-verify="macaddr" placeholder="请输入MAC地址" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>其他设置</legend>
+	</fieldset>
+			<label class="layui-form-label" style="font-size: 16px;width: 200px;text-align: right;margin-left: 200px;">DHCP&nbsp;&nbsp;开关</label>
+			<div class="layui-input-inline">
+				<input type="checkbox" id="auto" name="auto" lay-filter="auto" lay-skin="switch" lay-text="ON|OFF">
+			</div>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+		</fieldset>
+			<div class="layui-form-item">
+					<button type="submit" class="layui-btn" lay-submit="" lay-filter="sub" style="display:block;margin:0 auto;">保存</button>
+			</div>
+</form>
+<script>
+layui.use('form', function() {
+	var form = layui.form
+	,$ = layui.jquery;
+　　	form.render(); 
+	form.on('switch(auto)',function(data){
+		if (this.checked ? '1' : '0'=="1")　{
+/*			var changeSwitchJson= {
+			"configlist":{
+					"network.information":"network.information",
+					"action": 1,
+			},
+			"network.information": {
+				"auto" : 1,
+				"dns"  :dns,
+			},
+				"return_value": 0,
+			}
+			$.ajax({
+				type:"POST",
+				url:'../cgi-bin/webTransData.cgi',
+				ContentType:"application/json;charset=utf-8",
+				dataType:"json",
+				data:JSON.stringify(changeSwitchJson),                           
+				success:function(data){
+					document.getElementById('dns').value = data['network.information'].dns;
+					document.getElementById('ipaddr').value = data['network.information'].ipaddr;
+					document.getElementById('mask').value = data['network.information'].mask;
+					document.getElementById('gateway').value = data['network.information'].gateway;
+					document.getElementById('macaddr').value = data['network.information'].macaddr;
+					document.getElementById('dns').disabled= true;	
+					document.getElementById('ipaddr').disabled= true;
+					document.getElementById('mask').disabled= true;
+					document.getElementById('gateway').disabled= true;
+				},error:function(data){                        
+						alert("ERROR");
+				}
+			});
+			return false;
+*/			document.getElementById('dns').disabled= true;
+			document.getElementById('ipaddr').disabled= true;
+			document.getElementById('mask').disabled= true;
+			document.getElementById('gateway').disabled= true;
+		} else {
+			document.getElementById('dns').disabled= false;	
+			document.getElementById('ipaddr').disabled= false;
+			document.getElementById('mask').disabled= false;
+			document.getElementById('gateway').disabled= false;
+		}
+	});
+    	form.verify({
+   		dns: [
+    			/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+    			,'DNS地址不符合规则'
+    		],
+		ipaddr: [
+			/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+			,'IP地址不符合规则'
+		],
+		mask: [
+			/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+			,'子网掩码不符合规则'
+		],
+		gateway: [
+			/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+			,'网关不符合规则'
+		],
+	});
+	var getNetWorkInfoJson= {
+			"configlist":{
+				"network.information":"network.information",
+				"action": 0,
+			},
+			"return_value": 0,
+		}
+	$.ajax({
+		type:"POST",
+		url:'../cgi-bin/webTransData.cgi',
+		ContentType:"application/json;charset=utf-8",
+		dataType:"json",
+		data:JSON.stringify(getNetWorkInfoJson),                           
+		success:function(data){
+			document.getElementById('dns').value = data['network.information'].dns;
+			document.getElementById('ipaddr').value = data['network.information'].ipaddr;
+			document.getElementById('mask').value = data['network.information'].mask;
+			document.getElementById('gateway').value = data['network.information'].gateway;
+			document.getElementById('macaddr').value = data['network.information'].macaddr;
+		},error:function(data){                        
+			alert("ERROR");
+		}
+	});
+	form.on('submit(sub)',function (){
+		var dns = document.getElementById('dns').value;
+		var ipaddr = document.getElementById('ipaddr').value;
+		var mask = document.getElementById('mask').value;
+		var gateway = document.getElementById('gateway').value;
+		var setNetWorkInfoJson= {                                                                   
+		        "configlist":{
+				"network.information":"network.information",
+				"action": 1,
+			},
+			"network.information":{
+				"dns":dns,
+				"ipaddr":ipaddr,
+				"mask":mask,
+				"gateway":gateway,
+				"auto":0
+			},
+			"return_value":0,
+		}                                                                                              
+		        $.ajax({                                                                                       
+		               	type:"POST",
+				url:'../cgi-bin/webTransData.cgi',
+				ContentType:"application/json;charset=utf-8",
+				dataType:"json",
+				data:JSON.stringify(setNetWorkInfoJson),                                   
+		                success:function(data){
+                              		layer.msg("正在修改,请稍后!!",{time:4000,shade:[0.8,'#CCCCCC']},function(){
+						parent.parent.location.reload();	
+					});                                                                                                                              
+		                },error:function(data){  
+                                      	layer.msg("正在修改,请稍后!!",{time:4000,shade:[0.8,'#CCCCCC']},function(){
+						parent.parent.location.reload();
+					});
+				}                          
+		        });                                                                            
+		return false;
+	});
+});
+</script>
+</body>
+</html>

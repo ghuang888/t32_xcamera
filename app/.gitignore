@@ -1,0 +1,10 @@
+*.o
+*.img
+*.swp
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+xcamera
+tags
+build

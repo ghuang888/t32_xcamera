@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# Set mdev
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+/sbin/mdev -s && echo "mdev is ok......"
+
+# create console and null node for nfsroot
+#mknod -m 600 /dev/console c 5 1
+#mknod -m 666 /dev/null c 1 3
+
+# Set Global Environment
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export PATH=/system/bin:$PATH
+export LD_LIBRARY_PATH=/system/lib
+
+# networking
+ifconfig lo up
+#ifconfig eth0 192.168.1.80
+
+# Start telnet daemon
+telnetd &
+
+# Set the system time from the hardware clock
+#hwclock -s
+
+# Mount system partition
+mount -t jffs2 /dev/mtdblock3 /system
+
+# Format system patition if it is invalid
+if [ ! -f /system/.system ]; then
+    echo "Format system partition..."
+    umount -f /system
+    flash_eraseall /dev/mtd3
+    mount -t jffs2 /dev/mtdblock3 /system
+    cd /system
+    mkdir -p bin init etc/sensor lib/firmware lib/modules
+    echo "#!/bin/sh" > init/app_init.sh
+    chmod 755 init/app_init.sh
+    touch .system
+    cd /
+    echo "Done"
+fi
+
+# Run init script
+if [ -f /system/init/app_init.sh ]; then
+    /system/init/app_init.sh &
+fi

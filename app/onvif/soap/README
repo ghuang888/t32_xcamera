@@ -1,0 +1,14 @@
+使用SOAP生成onvif基础代码:
+1. 修改typemap.dat中的tdn成dn
+
+2. generate onvif.h 
+wsdl2h -o onvif.h -c -s -t ./typemap.dat  remotediscovery.wsdl devicemgmt.wsdl media.wsdl
+
+
+3. generate c codes
+soapcpp2 -2 -c onvif.h -I .\custom -I .\import -I .\import
+-x : do not generate xml files
+
+裁剪onvif基础代码:
+1. 注释掉wsdl中不用的功能
+2. out目录下文件copy到src_soap目录下

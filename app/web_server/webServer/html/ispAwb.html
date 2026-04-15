@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Tree View</title>
+    <link rel="stylesheet" href="css/tree.css">
+	<!-- <script src="js/tree.js"></script> -->
+	<script src="js/html5.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.js"></script>
+</head>
+<body>
+
+<div  style="display: flex;float: left;">
+
+<div class="tree"  style="display:block">
+    <ul class="caret1">
+        <li>
+            <span class="caret" >IMPISPWBAttr</span>
+            <ul class="nested">
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">mode</span>
+                        <input type="text" placeholder="Enter data here" class="node-input" >
+                    </div>
+                </li>
+                <li>
+                    <span class="caret">gain_val</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">rgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">bgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">awb_frz</span>
+                        <input type="text" placeholder="Enter data here" class="node-input">
+                    </div>
+                </li>
+                <li>
+                    <span class="caret">custom</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">customEn</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <span class="caret">gainH</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainM</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainL</span>
+                            <ul class="nested">
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">ct_node</span>
+                            <ul class="nested">
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node0</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node1</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node2</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node3</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+    <!-- 提交按钮 -->
+<button type="submit"  class="subgetAwbButton"  id="sub1" style="margin-left: 80px;">保存</button>
+<button type="submit"   class="getAwbButton" id="1">获取</button>
+</div>
+
+
+
+</div>
+<div  style="display: flex;float: left;">
+
+    <div class="tree">
+    <ul class="caret2">
+        <li>
+            <span class="caret">IMPISPAWBGlobalStatisInfo</span>
+            <ul class="nested">
+                <li>
+                    <span class="caret">statis_weight_gain</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">rgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">bgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="caret">statis_gol_gain</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">rgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">bgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- 提交按钮 -->
+<button type="submit"   class="getAwbButton" id="2" style="margin-left: 100px;">获取</button>
+</div>
+
+</div>
+<div  style="display: flex;float: left;">
+
+    <div class="tree">
+    <ul class="caret3">
+        <li>
+            <span class="caret">IMPISPAwbOnlyReadAttr </span>
+            <ul class="nested">
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">ct</span>
+                        <input type="text" placeholder="Enter data here" class="node-input" >
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- 提交按钮 -->
+<button type="submit"   class="getAwbButton" id="3" style="margin-left: 100px;">获取</button>
+</div>
+
+</div>
+<div  style="display: flex;float: left;">
+
+    <div class="tree">
+    <ul class="caret4">
+        <li>
+            <span class="caret" class="caret4">IMPISPAwbCtTrendOffset</span>
+            <ul class="nested">
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">thres_hm</span>
+                        <input type="text" placeholder="Enter data here" class="node-input" >
+                    </div>
+                </li>
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">thres_lm</span>
+                        <input type="text" placeholder="Enter data here" class="node-input" >
+                    </div>
+                </li>
+                <li>
+                    <span class="caret">custom</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">customEn</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <span class="caret">gainH</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainM</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainL</span>
+                            <ul class="nested">
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+    <!-- 提交按钮 -->
+<button type="submit"   class="subgetAwbButton" id="sub4" style="margin-left: 80px;">保存</button>
+<button type="submit"   class="getAwbButton" id="4">获取</button>
+</div>
+
+</div>
+<!-- <div  style="display: flex;float: left;">
+
+    <div class="tree">
+    <ul>
+        <li>
+            <span class="caret">IMPISPWBAttr</span>
+            <ul class="nested">
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">mode</span>
+                        <input type="text" placeholder="Enter data here" class="node-input" >
+                    </div>
+                </li>
+                <li>
+                    <span class="caret">gain_val</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">rgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">bgain</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="input-container">
+                        <span class="leaf">awb_frz</span>
+                        <input type="text" placeholder="Enter data here" class="node-input">
+                    </div>
+                </li>
+                <li>
+                    <span class="caret">custom</span>
+                    <ul class="nested">
+                        <li>
+                            <div class="input-container">
+                                <span class="leaf">customEn</span>
+                                <input type="text" placeholder="Enter data here" class="node-input">
+                            </div>
+                        </li>
+                        <li>
+                            <span class="caret">gainH</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainM</span>
+                            <ul class="nested">
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">gainL</span>
+                            <ul class="nested">
+                                    <div class="input-container">
+                                        <span class="leaf">rgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                    <div class="input-container">
+                                        <span class="leaf">bgain</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="caret">ct_node</span>
+                            <ul class="nested">
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node0</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node1</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node2</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                                    <div class="input-container">
+                                        <span class="leaf">ct_node3</span>
+                                        <input type="text" placeholder="Enter data here" class="node-input">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+    </ul> -->
+    <!-- 提交按钮 -->
+<!-- <button type="submit" onclick="submit()">保存</button>
+<button type="submit"   class="getAwbButton" id="1">获取</button>
+</div> -->
+
+</div>
+<script>
+    
+	const carets = document.querySelectorAll(".caret");
+    carets.forEach(caret => {
+            const nested = caret.nextElementSibling;
+            if (nested && nested.classList.contains("nested")) {
+                nested.style.display =  "block" ;
+            }
+    });
+
+// 为每个 caret 元素添加点击事件监听器
+carets.forEach(caret => {
+    caret.addEventListener("click", () => {
+        // 切换 'caret-down' 类以改变箭头方向
+        caret.classList.toggle("caret-down");
+
+        // 获取当前 caret 元素的下一个兄弟元素（即子节点列表）
+        const nested = caret.nextElementSibling;
+
+        // 如果子节点列表存在，则切换其显示状态
+        if (nested && nested.classList.contains("nested")) {
+            nested.style.display = nested.style.display === "block" ? "none" : "block";
+        }
+    });
+});
+
+function doAwbRes(xdata){
+    var info= {
+		"configlist":{
+			"video.isp.awbAttr":"video_isp_awbAttr",
+			"action": 0,
+		},
+        "video_isp_awbAttr":{
+            "modes":[]
+        }
+	}
+    var modes = ["IMPISPWBAttr", "IMPISPAWBGlobalStatisInfo", "IMPISPAwbOnlyReadAttr"];
+    info.video_isp_awbAttr.modes.push(modes[xdata-1]);
+    // switch (xdata) {
+    //     case 1:
+    //         info.video_isp_awbAttr.modes.push();
+    //         break;  
+    //     case 2:
+    //         info.video_isp_awbAttr.modes.push();
+    //         break;  
+    //     case 3:
+    //         info.video_isp_awbAttr.modes.push();
+    //         break;  
+
+    // }
+	console.log(info)
+		$.ajax({
+			type:"POST",
+
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(info),
+			success:function(data){
+                const classinput = ".caret" + xdata;
+                const inputElements = document.querySelectorAll(classinput);
+                // 获取所有输入框
+                const inputs = document.querySelectorAll( classinput + " .node-input");
+                console.log(inputs)
+                var count = 0;
+                // 遍历所有输入框，收集数据
+                inputs.forEach(input => {
+                    // const nodeName = input.getAttribute("data-node"); // 获取节点名称
+                   input.value = data["video.isp.awbAttr"]["sensor0"][modes[xdata-1]][count]; // 获取输入框中的值
+                    console.log(count);
+                    count++;
+                });
+			},error:function(data){
+				alert("Error");
+			}
+		});
+}
+const buttons = document.querySelectorAll('.getAwbButton');
+        // 为每个按钮添加点击事件监听器
+        buttons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                // 获取触发点击事件的元素的 ID
+                const clickedId = event.target.id;
+                switch (clickedId) {
+                    case "1":
+                        doAwbRes(1);
+                        break;
+                    case "2":
+                        doAwbRes(2);
+                        break;
+                    case "3":
+                        doAwbRes(3);
+                        break;
+                    case "4":
+                        doAwbRes(4);
+                        break;
+                    default:break;
+                }
+            });
+        });
+
+// 获取所有输入框
+const inputs = document.querySelectorAll(".node-input");
+
+// 为每个输入框添加事件监听器
+inputs.forEach(input => {
+    input.addEventListener("blur", () => {
+        // 当输入框失去焦点时，可以在这里处理输入框中的数据
+        console.log(`Input value: ${input.value}`);
+    });
+
+    input.addEventListener("keydown", (event) => {
+        // 当按下回车键时，模拟失去焦点
+        if (event.key === "Enter") {
+            input.blur();
+        }
+    });
+});
+</script>
+<script>
+    const buttonsub = document.querySelectorAll('.subgetAwbButton');
+        // 为每个按钮添加点击事件监听器
+        buttonsub.forEach(button => {
+            button.addEventListener('click', function (event) {
+                // 获取触发点击事件的元素的 ID
+                const clickedId = event.target.id;
+                switch (clickedId) {
+                    case "sub1":
+                        submit(1);
+                        break;
+                    case "sub4":
+                        submit(4);
+                        break;
+                    default:break;
+                }
+            });
+        });
+	function submit(xdata){
+	// 创建一个对象来存储所有输入框的数据
+	const data = [];
+    
+    const classinput = ".caret" + xdata;
+    const inputElements = document.querySelectorAll(classinput);
+	// 获取所有输入框
+	const inputs = document.querySelectorAll( classinput + " .node-input");
+    console.log(inputs)
+	// 遍历所有输入框，收集数据
+	inputs.forEach(input => {
+		// const nodeName = input.getAttribute("data-node"); // 获取节点名称
+		const inputValue = input.value; // 获取输入框中的值
+		data.push(inputValue); // 将节点名称和输入框值存入对象
+		console.log(inputValue);
+	});
+
+	// 将数据转换为 JSON 格式
+	const jsonData = JSON.stringify(data);
+
+	// 打印 JSON 数据到控制台（用于调试）
+	// console.log(jsonData);
+	var info= {
+		"configlist":{
+			"video.isp.awbAttr":"video.isp.awbAttr",
+			"action": 1,
+		},
+		"video.isp.awbAttr":{
+			"awb_mode":data,
+		},
+	}
+	console.log(info)
+		$.ajax({
+			type:"POST",
+
+			url:'../cgi-bin/webTransData.cgi',
+			ContentType:"application/json;charset=utf-8",
+			dataType:"json",
+			data:JSON.stringify(info),
+			success:function(data){
+				alert("Success");
+			},error:function(data){
+				alert("Error");
+			}
+		});
+	}
+
+
+</script>
+</body>
+</html>
